@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		245DB9A71EF9E84600CDE0C0 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245DB9A61EF9E84600CDE0C0 /* ListViewController.swift */; };
+		245DB9A91EFB2FE700CDE0C0 /* StudentViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245DB9A81EFB2FE700CDE0C0 /* StudentViewCell.swift */; };
+		245DB9AB1EFC598D00CDE0C0 /* AddAnnotationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245DB9AA1EFC598D00CDE0C0 /* AddAnnotationViewController.swift */; };
+		245DB9AD1EFDADD500CDE0C0 /* AddLinkToAnnotationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245DB9AC1EFDADD500CDE0C0 /* AddLinkToAnnotationViewController.swift */; };
 		2493AB7C1EF357FB00B5C986 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2493AB7B1EF357FB00B5C986 /* AppDelegate.swift */; };
 		2493AB7E1EF357FB00B5C986 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2493AB7D1EF357FB00B5C986 /* LoginViewController.swift */; };
 		2493AB811EF357FB00B5C986 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2493AB7F1EF357FB00B5C986 /* Main.storyboard */; };
@@ -40,6 +44,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		245DB9A61EF9E84600CDE0C0 /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
+		245DB9A81EFB2FE700CDE0C0 /* StudentViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentViewCell.swift; sourceTree = "<group>"; };
+		245DB9AA1EFC598D00CDE0C0 /* AddAnnotationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddAnnotationViewController.swift; sourceTree = "<group>"; };
+		245DB9AC1EFDADD500CDE0C0 /* AddLinkToAnnotationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddLinkToAnnotationViewController.swift; sourceTree = "<group>"; };
 		2493AB781EF357FB00B5C986 /* On The Map.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "On The Map.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2493AB7B1EF357FB00B5C986 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2493AB7D1EF357FB00B5C986 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -159,8 +167,6 @@
 		24CBF62E1EF72A86000FCE51 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				2493AB7D1EF357FB00B5C986 /* LoginViewController.swift */,
-				24CBF6431EF8A35E000FCE51 /* MapViewController.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -168,6 +174,12 @@
 		24CBF62F1EF72A8C000FCE51 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				2493AB7D1EF357FB00B5C986 /* LoginViewController.swift */,
+				24CBF6431EF8A35E000FCE51 /* MapViewController.swift */,
+				245DB9A61EF9E84600CDE0C0 /* ListViewController.swift */,
+				245DB9A81EFB2FE700CDE0C0 /* StudentViewCell.swift */,
+				245DB9AA1EFC598D00CDE0C0 /* AddAnnotationViewController.swift */,
+				245DB9AC1EFDADD500CDE0C0 /* AddLinkToAnnotationViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -361,6 +373,10 @@
 				24CBF6421EF8A2D3000FCE51 /* ParseClient.swift in Sources */,
 				24CBF6401EF890D1000FCE51 /* ParseConstant.swift in Sources */,
 				24CBF63A1EF75A43000FCE51 /* UdacityClient.swift in Sources */,
+				245DB9A71EF9E84600CDE0C0 /* ListViewController.swift in Sources */,
+				245DB9AD1EFDADD500CDE0C0 /* AddLinkToAnnotationViewController.swift in Sources */,
+				245DB9A91EFB2FE700CDE0C0 /* StudentViewCell.swift in Sources */,
+				245DB9AB1EFC598D00CDE0C0 /* AddAnnotationViewController.swift in Sources */,
 				24CBF6361EF74377000FCE51 /* UdacityConstant.swift in Sources */,
 				2493AB7E1EF357FB00B5C986 /* LoginViewController.swift in Sources */,
 				2493AB7C1EF357FB00B5C986 /* AppDelegate.swift in Sources */,

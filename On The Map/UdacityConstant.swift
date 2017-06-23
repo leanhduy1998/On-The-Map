@@ -9,17 +9,21 @@
 import Foundation
 
 class UdacityConstant {
-    struct Constant {
         static let status = "status"
         static let error = "error"
         static let key = "key"
         static let account = "account"
-    }
+        static let lastName = "last_name"
+        static let firstName = "first_name"
+        static let id = "id"
+        static let session = "session"
+        static let user = "user"
     struct MethodType {
         static let POST = "POST"
     }
     struct Method {
         static let getSession  = "https://www.udacity.com/api/session"
+        static let getPublicData = "https://www.udacity.com/api/users/" + userInfo.accountKey.description
     }
     struct LoginError {
         static let usernameTitle = "Username/email Missing!"

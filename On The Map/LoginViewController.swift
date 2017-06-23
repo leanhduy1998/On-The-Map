@@ -12,18 +12,18 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var usernameTF: UITextField!
     @IBOutlet weak var passwordTF: UITextField!
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-    }
-
-
     @IBAction func loginBtnPressed(_ sender: Any) {
         if validateTFs() == true {
             UdacityClient.login(username: usernameTF.text!, password: passwordTF.text!, completionHandler: {title, message in
                 if title.isEmpty {
                     DispatchQueue.main.async {
-                        self.performSegue(withIdentifier: "TabViewController", sender: self)
+                        ParseClient.getStudentsLocationMap(completeHandler: { (annotations) in
+                            MapViewController.annotations = annotations!
+                            ParseClient.getStudentsLocationsAsList(completeHandler: { (studentList) in
+                                ListViewController.studentsAsList = studentList
+                            })
+                            self.performSegue(withIdentifier: "TabViewController", sender: self)
+                        })
                     }
                 }
                 else {
@@ -62,11 +62,6 @@ class LoginViewController: UIViewController {
         self.present(controller, animated: true, completion: nil)
         
     }
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        print(segue.destination)
-        if let destination = segue.destination as? UIViewController {
-            
-        }
-    }
+ 
 }
 
