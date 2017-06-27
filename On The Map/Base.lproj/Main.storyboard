@@ -22,7 +22,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="duyanh12le@gmail.com" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Mcz-VF-V9G">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="duyanh12le@gmail.com" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="Mcz-VF-V9G">
                                 <rect key="frame" x="26" y="291" width="323" height="45"/>
                                 <color key="backgroundColor" red="0.93379782920056675" green="0.93379782920056675" blue="0.93379782920056675" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -30,7 +30,7 @@
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress"/>
                             </textField>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo-u" translatesAutoresizingMaskIntoConstraints="NO" id="8jM-sz-P51">
                                 <rect key="frame" x="127.5" y="90" width="120" height="120"/>
@@ -39,7 +39,7 @@
                                     <constraint firstAttribute="width" constant="120" id="WVy-zP-u4c"/>
                                 </constraints>
                             </imageView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nQS-JM-5VQ">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="nQS-JM-5VQ">
                                 <rect key="frame" x="26" y="344" width="323" height="45"/>
                                 <color key="backgroundColor" red="0.93323183059692383" green="0.9333917498588562" blue="0.93322181701660156" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -47,7 +47,7 @@
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login to Udacity" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YGN-XC-QJo">
                                 <rect key="frame" x="86" y="230" width="203" height="21"/>
@@ -331,10 +331,11 @@
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" enablesReturnKeyAutomatically="YES"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4RB-Y1-rdO">
                                 <rect key="frame" x="26" y="545" width="323" height="42"/>
+                                <color key="backgroundColor" red="0.092600753659723978" green="0.0" blue="1" alpha="0.069789832746478875" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="Find on the map">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -388,27 +389,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Byc-TX-aIy">
-                                <rect key="frame" x="0.0" y="250" width="375" height="417"/>
+                                <rect key="frame" x="0.0" y="150" width="375" height="517"/>
                                 <connections>
                                     <outlet property="delegate" destination="OAm-ga-b5d" id="pL3-iN-ehv"/>
                                 </connections>
                             </mapView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="MmD-CS-KU9">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="250"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="250" id="aUX-dt-ORa"/>
-                                </constraints>
-                            </imageView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter a Link to Share Here" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dJr-Ft-zkN">
-                                <rect key="frame" x="52.5" y="110" width="270" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="270" id="alM-bY-7sq"/>
-                                </constraints>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o30-9a-nKS">
                                 <rect key="frame" x="162.5" y="577" width="49" height="30"/>
                                 <state key="normal" title="Submit"/>
@@ -416,20 +401,46 @@
                                     <action selector="submitBtnClicked:" destination="OAm-ga-b5d" eventType="touchUpInside" id="p4p-XG-A0p"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t2y-Ds-dAs">
+                                <rect key="frame" x="0.0" y="20" width="375" height="130"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="MmD-CS-KU9">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="130"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </imageView>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter a Link to Share Here" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dJr-Ft-zkN">
+                                        <rect key="frame" x="38" y="50" width="300" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="300" id="uPd-6R-cIa"/>
+                                        </constraints>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="MmD-CS-KU9" firstAttribute="top" secondItem="t2y-Ds-dAs" secondAttribute="top" id="1lI-am-cDs"/>
+                                    <constraint firstItem="dJr-Ft-zkN" firstAttribute="centerY" secondItem="t2y-Ds-dAs" secondAttribute="centerY" id="Ch7-6B-hkn"/>
+                                    <constraint firstAttribute="trailing" secondItem="MmD-CS-KU9" secondAttribute="trailing" id="FWH-RP-f5k"/>
+                                    <constraint firstAttribute="bottom" secondItem="MmD-CS-KU9" secondAttribute="bottom" id="V7E-q7-xK4"/>
+                                    <constraint firstAttribute="height" constant="130" id="aNS-tm-2kt"/>
+                                    <constraint firstItem="dJr-Ft-zkN" firstAttribute="centerX" secondItem="t2y-Ds-dAs" secondAttribute="centerX" id="oj8-Ke-s1A"/>
+                                    <constraint firstItem="MmD-CS-KU9" firstAttribute="leading" secondItem="t2y-Ds-dAs" secondAttribute="leading" id="wza-0M-iQw"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Byc-TX-aIy" firstAttribute="top" secondItem="MmD-CS-KU9" secondAttribute="bottom" id="BvD-Em-g5Z"/>
-                            <constraint firstItem="dJr-Ft-zkN" firstAttribute="centerX" secondItem="BO7-FR-lrZ" secondAttribute="centerX" id="EPy-EI-KhG"/>
                             <constraint firstItem="o30-9a-nKS" firstAttribute="centerX" secondItem="BO7-FR-lrZ" secondAttribute="centerX" id="Ngk-hE-XXD"/>
-                            <constraint firstAttribute="trailing" secondItem="MmD-CS-KU9" secondAttribute="trailing" id="YgW-2r-mNB"/>
                             <constraint firstItem="Byc-TX-aIy" firstAttribute="leading" secondItem="BO7-FR-lrZ" secondAttribute="leading" id="cbN-2K-Bkr"/>
                             <constraint firstItem="mfQ-yx-who" firstAttribute="top" secondItem="Byc-TX-aIy" secondAttribute="bottom" id="gq1-oJ-X4j"/>
+                            <constraint firstItem="Byc-TX-aIy" firstAttribute="top" secondItem="t2y-Ds-dAs" secondAttribute="bottom" id="hkG-OL-KuR"/>
+                            <constraint firstItem="t2y-Ds-dAs" firstAttribute="leading" secondItem="BO7-FR-lrZ" secondAttribute="leading" id="izv-YV-RMc"/>
                             <constraint firstItem="mfQ-yx-who" firstAttribute="top" secondItem="o30-9a-nKS" secondAttribute="bottom" constant="60" id="oSr-6d-08h"/>
                             <constraint firstAttribute="trailing" secondItem="Byc-TX-aIy" secondAttribute="trailing" id="t8a-gI-Lo2"/>
-                            <constraint firstItem="MmD-CS-KU9" firstAttribute="leading" secondItem="BO7-FR-lrZ" secondAttribute="leading" id="vX7-V7-zLH"/>
-                            <constraint firstItem="MmD-CS-KU9" firstAttribute="top" secondItem="BO7-FR-lrZ" secondAttribute="top" id="ynu-IL-O9n"/>
-                            <constraint firstItem="Byc-TX-aIy" firstAttribute="top" secondItem="dJr-Ft-zkN" secondAttribute="bottom" constant="110" id="yoY-LN-W9n"/>
+                            <constraint firstItem="t2y-Ds-dAs" firstAttribute="top" secondItem="fGg-Az-uEz" secondAttribute="bottom" id="zUl-w9-ENF"/>
+                            <constraint firstAttribute="trailing" secondItem="t2y-Ds-dAs" secondAttribute="trailing" id="zqA-y7-SqC"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>

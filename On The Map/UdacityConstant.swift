@@ -9,6 +9,7 @@
 import Foundation
 
 class UdacityConstant {
+    struct Text {
         static let status = "status"
         static let error = "error"
         static let key = "key"
@@ -18,6 +19,8 @@ class UdacityConstant {
         static let id = "id"
         static let session = "session"
         static let user = "user"
+    }
+
     struct MethodType {
         static let POST = "POST"
     }
@@ -36,6 +39,8 @@ class UdacityConstant {
         static var id: String!
         static var accountKey: Int!
         static var registered: Bool!
+        static var firstName: String!
+        static var lastName: String!
     }
     
 }

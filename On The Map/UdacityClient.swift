@@ -26,13 +26,13 @@ class UdacityClient {
             
             let parsedData = convertData(data: newData!)
             
-            guard let account = parsedData[UdacityConstant.account] as? [String:AnyObject] else {
-                guard let statusCode = parsedData[UdacityConstant.status] as? Int else {
+            guard let account = parsedData[UdacityConstant.Text.account] as? [String:AnyObject] else {
+                guard let statusCode = parsedData[UdacityConstant.Text.status] as? Int else {
                     print("status code err")
                     return
                 }
                 if(statusCode < 200 || statusCode > 299) {
-                    guard let err = parsedData[UdacityConstant.error] as? String else {
+                    guard let err = parsedData[UdacityConstant.Text.error] as? String else {
                         print("status code err err")
                         return
                     }
@@ -41,18 +41,18 @@ class UdacityClient {
                 }
                 return
             }
-            guard let key = account[UdacityConstant.key] as? String else {
+            guard let key = account[UdacityConstant.Text.key] as? String else {
                 print("key err")
                 return
             }
             UdacityConstant.userInfo.accountKey = Int(key)
             
-            guard let session = parsedData[UdacityConstant.session] as? [String:AnyObject] else {
+            guard let session = parsedData[UdacityConstant.Text.session] as? [String:AnyObject] else {
                 print("session err")
                 return
             }
             
-            guard let id = session[UdacityConstant.id] as? String else {
+            guard let id = session[UdacityConstant.Text.id] as? String else {
                 print("id err")
                 return
             }
@@ -62,7 +62,7 @@ class UdacityClient {
         task.resume()
     }
     
-    static func getUserPublicData(completeHandler: @escaping (_ data:[String:String])->Void){
+    static func getUserPublicData(){
         if (UdacityConstant.userInfo.id == nil) || UdacityConstant.userInfo.id.isEmpty {
             print("user not login yet, getUserPublicData")
             return
@@ -79,22 +79,21 @@ class UdacityClient {
             
             let parsedData = convertData(data:  newData!)
             
-            guard let user = parsedData[UdacityConstant.user] as? [String:AnyObject] else {
+            guard let user = parsedData[UdacityConstant.Text.user] as? [String:AnyObject] else {
                 print("user err")
                 return
             }
             
-            guard let lastName = user[UdacityConstant.lastName] as? String else {
+            guard let lastName = user[UdacityConstant.Text.lastName] as? String else {
                 print("last name err")
                 return
             }
-            guard let firstName = user[UdacityConstant.firstName] as? String else {
+            guard let firstName = user[UdacityConstant.Text.firstName] as? String else {
                 print("first name err")
                 return
             }
-            let name = "\(firstName) \(lastName)"
-            completeHandler(["name":name])
-            
+            UdacityConstant.userInfo.firstName = firstName
+            UdacityConstant.userInfo.lastName = lastName
         }
         task.resume()
     }

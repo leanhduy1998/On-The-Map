@@ -21,8 +21,10 @@ class LoginViewController: UIViewController {
                             MapViewController.annotations = annotations!
                             ParseClient.getStudentsLocationsAsList(completeHandler: { (studentList) in
                                 ListViewController.studentsAsList = studentList
+                                self.performSegue(withIdentifier: "TabViewController", sender: self)
                             })
-                            self.performSegue(withIdentifier: "TabViewController", sender: self)
+                            UdacityClient.getUserPublicData()
+                            
                         })
                     }
                 }

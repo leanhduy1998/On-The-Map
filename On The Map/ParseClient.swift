@@ -12,13 +12,18 @@ import MapKit
 class ParseClient {
     
     static func getStudentsLocationMap(completeHandler: @escaping (_ annotions: [MKPointAnnotation]?) -> Void){
-        let HttpHeader = [ParseConstant.Constants.applicationID:"X-Parse-Application-Id",ParseConstant.Constants.RESTAPIKey:"X-Parse-REST-API-Key"]
-        GETrequest(method: ParseConstant.Method.getLocation, HttpHeader: HttpHeader) { (data, error) in
+        let HttpHeader = [ParseConstant.applicationID:"X-Parse-Application-Id",ParseConstant.RESTAPIKey:"X-Parse-REST-API-Key"]
+        let HttpBody =  "".data(using: String.Encoding.utf8)
+        HttpRequest(method: ParseConstant.Method.getLocation, HttpHeader: HttpHeader, HttpBody: HttpBody!, methodType: ParseConstant.MethodType.GET) { (data, error) in
             if error == nil {
                 var annotationsArr = [MKPointAnnotation]()
-                let results = data as? [[String:AnyObject]]
+                guard let results = data["results"] as? [[String:AnyObject]] else {
+                    print("results err")
+                    return
+                }
                 var emptyData = false
-                for result in results! {
+                print(data)
+                for result in results {
                     guard let latitude = result["latitude"] as? Double else {
                         print("latitude err")
                         emptyData = true
@@ -44,6 +49,7 @@ class ParseClient {
                         emptyData = true
                         continue
                     }
+                    emptyData = false
                     
                     if(emptyData==false){
                         let annotation = MKPointAnnotation()
@@ -54,21 +60,22 @@ class ParseClient {
                     }
                     
                 }
-                print("done in Client")
                 completeHandler(annotationsArr)
-                
             }
         }
 
     }
     static func getStudentsLocationsAsList(completeHandler: @escaping(_ studentsArr: [[String:String]]) -> Void) {
-        let HttpHeader = [ParseConstant.Constants.applicationID:"X-Parse-Application-Id",ParseConstant.Constants.RESTAPIKey:"X-Parse-REST-API-Key"]
         var studentsAsList = [[String:String]]()
-        GETrequest(method: ParseConstant.Method.getLocation, HttpHeader: HttpHeader) { (data, error) in
+        
+        let HttpBody =  "".data(using: String.Encoding.utf8)
+        HttpRequest(method: ParseConstant.Method.getLocation, HttpHeader: ParseConstant.HttpHeader, HttpBody: HttpBody!, methodType: ParseConstant.MethodType.GET) { (data, error) in
             if error == nil {
-                
-                let results = data as? [[String:AnyObject]]
-                for result in results! {
+                guard let results = data["results"] as? [[String:AnyObject]] else {
+                    print("results err")
+                    return
+                }
+                for result in results {
                     guard let firstName = result["firstName"] as? String else {
                         print("firstName err")
                         continue
@@ -89,17 +96,32 @@ class ParseClient {
             }
         }
     }
+    static func postStudentLocation(mapString:String, mediaURL: String, latitude: CLLocationDegrees, longitude: CLLocationDegrees, handleResult: @escaping (_ result: AnyObject?, _ error: String?) -> Void){
+        let HttpBody = "{\"uniqueKey\": \(UdacityConstant.userInfo.accountKey), \"firstName\": \(UdacityConstant.userInfo.firstName), \"lastName\": \(UdacityConstant.userInfo.lastName),\"mapString\": \(mapString), \"mediaURL\": \(mediaURL),\"latitude\": \(latitude), \"longitude\": \(longitude)}".data(using: String.Encoding.utf8)
+        
+        HttpRequest(method: ParseConstant.Method.postLocation, HttpHeader: ParseConstant.HttpHeader, HttpBody: HttpBody!, methodType: ParseConstant.MethodType.POST) { (result, error) in
+            print(result)
+            handleResult(result as AnyObject, "")
+        }
+        
+        
+    }
 
-    private static func GETrequest(method: String, HttpHeader: [String:String], handleResult: @escaping (_ result: AnyObject?, _ error: String?) -> Void){
+    private static func HttpRequest(method: String, HttpHeader: [String:String], HttpBody: Data, methodType:String, handleResult: @escaping (_ result: [String:AnyObject], _ error: String?) -> Void){
         let request = NSMutableURLRequest(url: URL(string: method)!)
+        request.httpMethod = methodType
+        
         for(key,value) in HttpHeader {
             request.addValue(key, forHTTPHeaderField: value)
         }
+
+        request.httpBody = HttpBody
+        
         let session = URLSession.shared
         
         let task = session.dataTask(with: request as URLRequest) { data, response, error in
             if error != nil { // Handle error...
-                print("task err getStudentLocations")
+                print("task err get")
                 return
             }
             
@@ -110,12 +132,9 @@ class ParseClient {
             catch {
                 print("parse data err")
             }
-            guard let results = parsedData["results"] as? [[String:AnyObject]] else {
-                print("results err")
-                return
-            }
             
-            handleResult(results as AnyObject, nil)
+            
+            handleResult(parsedData, nil)
         }
         task.resume()
     }
