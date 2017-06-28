@@ -8,10 +8,24 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var usernameTF: UITextField!
     @IBOutlet weak var passwordTF: UITextField!
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        usernameTF.delegate = self
+        passwordTF.delegate = self
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool
+    {
+        textField.resignFirstResponder()
+        return true;
+    }
+    
+
+    
     @IBAction func loginBtnPressed(_ sender: Any) {
         if validateTFs() == true {
             UdacityClient.login(username: usernameTF.text!, password: passwordTF.text!, completionHandler: {title, message in
@@ -21,10 +35,13 @@ class LoginViewController: UIViewController {
                             MapViewController.annotations = annotations!
                             ParseClient.getStudentsLocationsAsList(completeHandler: { (studentList) in
                                 ListViewController.studentsAsList = studentList
-                                self.performSegue(withIdentifier: "TabViewController", sender: self)
+                                UdacityClient.getUserPublicData(completeHandler: {
+                                    ParseClient.getUserLocation(completeHandler: { (result) in
+                                        ParseConstant.userData.annotationObjectIdArr = result
+                                        self.performSegue(withIdentifier: "TabViewController", sender: self)
+                                    })
+                                })
                             })
-                            UdacityClient.getUserPublicData()
-                            
                         })
                     }
                 }
@@ -37,10 +54,8 @@ class LoginViewController: UIViewController {
         }
     }
     @IBAction func signUpBtnPressed(_ sender: Any) {
+        UIApplication.shared.open(NSURL(string: "https://www.udacity.com/account/auth#!/signup")! as URL, options: [:], completionHandler: nil)
     }
-    @IBAction func signInFacebookBtnPressed(_ sender: Any) {
-    }
-    
     
     func validateTFs() -> Bool{
         if (usernameTF.text?.isEmpty)! {

@@ -10,10 +10,21 @@ import UIKit
 import Foundation
 import MapKit
 
-class AddAnnotationViewController: UIViewController {
+class AddAnnotationViewController: UIViewController,UITextFieldDelegate  {
     @IBOutlet weak var searchTF: UITextField!
 
     private var annotation = MKPointAnnotation()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        searchTF.delegate = self
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool
+    {
+        textField.resignFirstResponder()
+        return true;
+    }
     
     @IBAction func findBtnPressed(_ sender: Any) {
         let localSearchRequest = MKLocalSearchRequest()
@@ -28,7 +39,8 @@ class AddAnnotationViewController: UIViewController {
                 self.present(alertController, animated: true, completion: nil)
                 return
             }
-
+            
+            self.annotation.title = "\(UdacityConstant.userInfo.firstName) \(UdacityConstant.userInfo.lastName)"
             self.annotation.coordinate = CLLocationCoordinate2D(latitude: localSearchResponse!.boundingRegion.center.latitude, longitude:     localSearchResponse!.boundingRegion.center.longitude)
 
             DispatchQueue.main.async {

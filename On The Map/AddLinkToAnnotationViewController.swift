@@ -9,13 +9,24 @@
 import UIKit
 import MapKit
 
-class AddLinkToAnnotationViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDelegate {
+class AddLinkToAnnotationViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDelegate,UITextFieldDelegate {
     
     @IBOutlet weak var linkTF: UITextField!
     @IBOutlet weak var mapview: MKMapView!
     
     var annotation = MKPointAnnotation()
     var mapString = String()
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool
+    {
+        textField.resignFirstResponder()
+        return true;
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        linkTF.delegate = self
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -24,13 +35,31 @@ class AddLinkToAnnotationViewController: UIViewController, MKMapViewDelegate,CLL
     }
     
     @IBAction func submitBtnClicked(_ sender: Any) {
-        ParseClient.postStudentLocation(mapString: mapString, mediaURL: linkTF.text!, latitude: annotation
-            .coordinate.latitude, longitude: annotation.coordinate.longitude) { (data, error) in
-                print("submitBtnClicked")
-                print(data)
-                DispatchQueue.main.async {
-                    self.dismiss(animated: true, completion: nil)
-                }
+        annotation.subtitle = linkTF.text
+        MapViewController.annotations.append(annotation)
+        
+        var count = 0
+        if ParseConstant.userData.annotationObjectIdArr.count > 0 {
+            for objectId in ParseConstant.userData.annotationObjectIdArr {
+                ParseClient.putStudentLocation(objectId: objectId, mapString: mapString, mediaURL: linkTF.text!, latitude: annotation
+                    .coordinate.latitude, longitude: annotation.coordinate.longitude, handleResult: {
+                        count = count + 1
+                        DispatchQueue.main.async {
+                            if count == ParseConstant.userData.annotationObjectIdArr.count {
+                                count = 0
+                                self.performSegue(withIdentifier: "unwindBackToMapview", sender: self)
+                            }
+                        }
+                })
+            }
+        }
+        else {
+            ParseClient.postStudentLocation(mapString: mapString, mediaURL: linkTF.text!, latitude: annotation
+                .coordinate.latitude, longitude: annotation.coordinate.longitude) {
+                    DispatchQueue.main.async {
+                        self.performSegue(withIdentifier: "unwindBackToMapview", sender: self)
+                    }
+            }
         }
     }
     func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {

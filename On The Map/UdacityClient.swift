@@ -62,7 +62,7 @@ class UdacityClient {
         task.resume()
     }
     
-    static func getUserPublicData(){
+    static func getUserPublicData(completeHandler: @escaping () -> Void){
         if (UdacityConstant.userInfo.id == nil) || UdacityConstant.userInfo.id.isEmpty {
             print("user not login yet, getUserPublicData")
             return
@@ -94,6 +94,7 @@ class UdacityClient {
             }
             UdacityConstant.userInfo.firstName = firstName
             UdacityConstant.userInfo.lastName = lastName
+            completeHandler()
         }
         task.resume()
     }
