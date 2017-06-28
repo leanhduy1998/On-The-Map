@@ -267,13 +267,16 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="icon_refresh"/>
                             </button>
+                            <connections>
+                                <action selector="refreshBtnPressed:" destination="Ay5-Ae-gmW" id="d87-FZ-lSk"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="addPinBtn" destination="vej-n2-gMb" id="YPy-xn-3Mu"/>
                         <outlet property="loadingDataLabel" destination="ZTW-nw-9XY" id="pHr-7i-93h"/>
                         <outlet property="mapView" destination="YVi-7V-8AY" id="Hjv-yO-kl3"/>
-                        <outlet property="refreshBtn" destination="lW3-y7-Aw4" id="P1T-M9-QND"/>
+                        <outlet property="refreshBtnPressed" destination="lW3-y7-Aw4" id="6af-xj-W9t"/>
                         <segue destination="Taw-vN-eee" kind="show" identifier="AddAnnotationViewController" id="RQk-A5-pLQ"/>
                         <segue destination="cgy-HD-sgp" kind="unwind" identifier="backToMapSegue" unwindAction="prepareForUnwindWithSegue:" id="DYI-H7-vTM"/>
                     </connections>

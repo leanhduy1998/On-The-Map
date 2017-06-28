@@ -21,11 +21,7 @@ class MapViewController: UIViewController, MKMapViewDelegate  {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        ParseClient.getStudentsLocationMap { (result) in
-            self.mapView.removeAnnotations(self.mapView.annotations)
-            MapViewController.annotations = result!
-            self.mapView.addAnnotations(MapViewController.annotations)
-        }
+        refreshData()
         
         if(ParseConstant.userData.annotationObjectIdArr.count == 0 ){
             isLoading(loading: true)
@@ -89,4 +85,14 @@ class MapViewController: UIViewController, MKMapViewDelegate  {
         }
     }
 
+    @IBAction func refreshBtnPressed(_ sender: Any) {
+        refreshData()
+    }
+    func refreshData(){
+        ParseClient.getStudentsLocationMap { (result) in
+            self.mapView.removeAnnotations(self.mapView.annotations)
+            MapViewController.annotations = result!
+            self.mapView.addAnnotations(MapViewController.annotations)
+        }
+    }
 }
