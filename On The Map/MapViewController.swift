@@ -10,10 +10,10 @@ import UIKit
 import MapKit
 
 class MapViewController: UIViewController, MKMapViewDelegate  {
-    @IBOutlet weak var navigationTitle: UINavigationItem!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var addPinBtn: UIBarButtonItem!
-    @IBOutlet weak var refreshBtn: UIBarButtonItem!
+
+    @IBOutlet weak var refreshBtn: UIButton!
 
     @IBOutlet weak var loadingDataLabel: UILabel!
     static var annotations = [MKAnnotation]()
