@@ -118,7 +118,7 @@ class ParseClient {
         
         let method = ParseConstant.method + "/\(objectId)"
         
-        HttpRequest(method: ParseConstant.method, HttpHeader: HttpHeader, HttpBody: HttpBody!, methodType: ParseConstant.MethodType.POST) { (result, error) in
+        HttpRequest(method: method, HttpHeader: HttpHeader, HttpBody: HttpBody!, methodType: ParseConstant.MethodType.POST) { (result, error) in
             if let err = result["error"] {
                 print("err postStudentLocation")
                 return
@@ -175,8 +175,13 @@ class ParseClient {
     }
 
     private static func HttpRequest(method: String, HttpHeader: [String:String], HttpBody: Data, methodType:String, handleResult: @escaping (_ result: AnyObject, _ error: String?) -> Void){
-        let request = NSMutableURLRequest(url: URL(string: method)!)
+        
+        let limiter = "?limit=100"
+        let url = "\(method)\(limiter)"
+        
+        let request = NSMutableURLRequest(url: URL(string: url)!)
         request.httpMethod = methodType
+        request.timeoutInterval = 120;
         
         for(key,value) in HttpHeader {
             request.addValue(key, forHTTPHeaderField: value)

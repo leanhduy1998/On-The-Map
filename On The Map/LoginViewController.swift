@@ -11,7 +11,8 @@ import UIKit
 class LoginViewController: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var usernameTF: UITextField!
     @IBOutlet weak var passwordTF: UITextField!
-
+    @IBOutlet weak var loginBtn: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         usernameTF.delegate = self
@@ -27,6 +28,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
 
     
     @IBAction func loginBtnPressed(_ sender: Any) {
+        isLoading(isLoading: true)
         if validateTFs() == true {
             UdacityClient.login(username: usernameTF.text!, password: passwordTF.text!, completionHandler: {title, message in
                 if title.isEmpty {
@@ -38,7 +40,10 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                                 UdacityClient.getUserPublicData(completeHandler: {
                                     ParseClient.getUserLocation(completeHandler: { (result) in
                                         ParseConstant.userData.annotationObjectIdArr = result
-                                        self.performSegue(withIdentifier: "TabViewController", sender: self)
+                                        DispatchQueue.main.async {
+                                            self.performSegue(withIdentifier: "TabViewController", sender: self)
+                                        }
+                                        
                                     })
                                 })
                             })
@@ -47,11 +52,17 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                 }
                 else {
                     DispatchQueue.main.async {
+                        self.isLoading(isLoading: false)
                         self.showAlert(title: title, message: message)
                     }
                 }
             })
         }
+    }
+    func isLoading(isLoading: Bool){
+        usernameTF.isEnabled = !isLoading
+        passwordTF.isEnabled = !isLoading
+        loginBtn.isEnabled = !isLoading
     }
     @IBAction func signUpBtnPressed(_ sender: Any) {
         UIApplication.shared.open(NSURL(string: "https://www.udacity.com/account/auth#!/signup")! as URL, options: [:], completionHandler: nil)
