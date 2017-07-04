@@ -20,28 +20,7 @@ class MapViewController: UIViewController, MKMapViewDelegate  {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        isLoading(loading: false)
         refreshData()
-        
-        if(ParseConstant.userData.annotationObjectIdArr.count == 0 ){
-            isLoading(loading: true)
-        }
-        
-        let queue = DispatchQueue(label: "com.appcoda.delayqueue", qos: .userInitiated)
-        var count = 0
-        queue.async {
-            while(ParseConstant.userData.annotationObjectIdArr.count == 0 ){
-                count = count + 1
-                print(count)
-                if(ParseConstant.userData.annotationObjectIdArr.count > 0 ){
-                    DispatchQueue.main.async {
-                        self.isLoading(loading: false)
-                    }
-                    break
-                }
-            }
-        }
     }
     @IBAction func unwindBackToMapview(segue: UIStoryboardSegue){
         
@@ -95,5 +74,12 @@ class MapViewController: UIViewController, MKMapViewDelegate  {
     func refreshData(){
         self.mapView.removeAnnotations(self.mapView.annotations)
         self.mapView.addAnnotations(MapViewController.annotations)
+        updateData()
+    }
+    func updateData(){
+        ParseClient.getStudentsLocationMap { (result) in
+            self.mapView.removeAnnotations(self.mapView.annotations)
+            self.mapView.addAnnotations(result!)
+        }
     }
 }

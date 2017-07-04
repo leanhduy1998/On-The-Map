@@ -186,7 +186,7 @@
                                 <rect key="frame" x="0.0" y="28" width="414" height="52"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="DeT-4v-9JM" id="e9h-ez-o0V">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="51.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="51.666666666666664"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_pin" translatesAutoresizingMaskIntoConstraints="NO" id="SKs-i3-8fN">
@@ -234,7 +234,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" style="plain" id="xWu-ku-1UL">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Ly5-hq-vS7">
-                                <rect key="frame" x="382" y="10" width="78" height="24"/>
+                                <rect key="frame" x="316" y="10" width="78" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="icon_refresh"/>
                                 <connections>
@@ -286,19 +286,11 @@
                                     <outlet property="delegate" destination="Ay5-Ae-gmW" id="j90-bq-Zzs"/>
                                 </connections>
                             </mapView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading Data" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZTW-nw-9XY">
-                                <rect key="frame" x="110" y="348" width="194" height="40"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="33"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="ZTW-nw-9XY" firstAttribute="centerX" secondItem="0gY-gc-A6d" secondAttribute="centerX" id="MST-Gc-Gru"/>
                             <constraint firstAttribute="trailing" secondItem="YVi-7V-8AY" secondAttribute="trailing" id="XLk-Zc-8bv"/>
                             <constraint firstItem="YVi-7V-8AY" firstAttribute="leading" secondItem="0gY-gc-A6d" secondAttribute="leading" id="Xvy-60-sgA"/>
-                            <constraint firstItem="ZTW-nw-9XY" firstAttribute="centerY" secondItem="0gY-gc-A6d" secondAttribute="centerY" id="n8O-sF-JfS"/>
                             <constraint firstItem="YVi-7V-8AY" firstAttribute="top" secondItem="QoO-st-W9T" secondAttribute="bottom" id="o3a-Sc-qke"/>
                             <constraint firstItem="QJO-SA-FjO" firstAttribute="top" secondItem="YVi-7V-8AY" secondAttribute="bottom" id="uOO-tb-EEp"/>
                         </constraints>
@@ -316,7 +308,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" style="plain" id="lW3-y7-Aw4">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="afT-Zb-gyA">
-                                <rect key="frame" x="382" y="10" width="78" height="24"/>
+                                <rect key="frame" x="316" y="10" width="78" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="icon_refresh"/>
                             </button>
@@ -327,7 +319,6 @@
                     </navigationItem>
                     <connections>
                         <outlet property="addPinBtn" destination="vej-n2-gMb" id="YPy-xn-3Mu"/>
-                        <outlet property="loadingDataLabel" destination="ZTW-nw-9XY" id="pHr-7i-93h"/>
                         <outlet property="mapView" destination="YVi-7V-8AY" id="Hjv-yO-kl3"/>
                         <outlet property="refreshBtn" destination="afT-Zb-gyA" id="8hg-9a-gQO"/>
                         <segue destination="Taw-vN-eee" kind="show" identifier="AddAnnotationViewController" id="RQk-A5-pLQ"/>
