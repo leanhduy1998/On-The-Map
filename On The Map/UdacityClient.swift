@@ -18,7 +18,8 @@ class UdacityClient {
         
         let session = URLSession.shared
         let task = session.dataTask(with: request as URLRequest) { data, response, error in
-            if error != nil { // Handle error…
+            if error != nil {
+                completionHandler("Error login", error.debugDescription)
                 return
             }
             let range = Range(5..<data!.count)
@@ -57,7 +58,22 @@ class UdacityClient {
                 return
             }
             UdacityConstant.userInfo.id = id
-            completionHandler("","")
+            
+            
+            DispatchQueue.main.async {
+                ParseClient.getStudentsLocationMap(completeHandler: { (annotations) in
+                    MapViewController.annotations = annotations!
+                    ParseClient.getStudentsLocationsAsList(completeHandler: { (studentList) in
+                        ListViewController.studentsAsList = studentList
+                        UdacityClient.getUserPublicData(completeHandler: {
+                            ParseClient.getUserLocationObjectId(completeHandler: { (result) in
+                                ParseConstant.userData.annotationObjectIdArr = result
+                                completionHandler("","")
+                            })
+                        })
+                    })
+                })
+            }
         }
         task.resume()
     }

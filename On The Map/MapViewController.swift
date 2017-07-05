@@ -67,6 +67,14 @@ class MapViewController: UIViewController, MKMapViewDelegate  {
             UIApplication.shared.open(NSURL(string: annotation.subtitle!!)! as URL, options: [:], completionHandler: nil)
         }
     }
+    
+    @IBAction func signOutBtnPressed(_ sender: Any) {
+        ParseClient.deleteSession(completeHandler: {
+            DispatchQueue.main.async {
+                self.dismiss(animated: true, completion: nil)
+            }
+        })
+    }
 
     @IBAction func refreshBtnPressed(_ sender: Any) {
         refreshData()
@@ -74,12 +82,5 @@ class MapViewController: UIViewController, MKMapViewDelegate  {
     func refreshData(){
         self.mapView.removeAnnotations(self.mapView.annotations)
         self.mapView.addAnnotations(MapViewController.annotations)
-        updateData()
-    }
-    func updateData(){
-        ParseClient.getStudentsLocationMap { (result) in
-            self.mapView.removeAnnotations(self.mapView.annotations)
-            self.mapView.addAnnotations(result!)
-        }
     }
 }

@@ -33,21 +33,8 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
             UdacityClient.login(username: usernameTF.text!, password: passwordTF.text!, completionHandler: {title, message in
                 if title.isEmpty {
                     DispatchQueue.main.async {
-                        ParseClient.getStudentsLocationMap(completeHandler: { (annotations) in
-                            MapViewController.annotations = annotations!
-                            ParseClient.getStudentsLocationsAsList(completeHandler: { (studentList) in
-                                ListViewController.studentsAsList = studentList
-                                UdacityClient.getUserPublicData(completeHandler: {
-                                    ParseClient.getUserLocation(completeHandler: { (result) in
-                                        ParseConstant.userData.annotationObjectIdArr = result
-                                        DispatchQueue.main.async {
-                                            self.performSegue(withIdentifier: "TabViewController", sender: self)
-                                        }
-                                        
-                                    })
-                                })
-                            })
-                        })
+                        self.isLoading(isLoading: false)
+                        self.performSegue(withIdentifier: "TabViewController", sender: self)
                     }
                 }
                 else {

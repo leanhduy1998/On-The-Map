@@ -14,7 +14,12 @@ class ParseClient {
     static func getStudentsLocationMap(completeHandler: @escaping (_ annotions: [MKPointAnnotation]?) -> Void){
         let HttpHeader = [ParseConstant.applicationID:"X-Parse-Application-Id",ParseConstant.RESTAPIKey:"X-Parse-REST-API-Key"]
         let HttpBody =  "".data(using: String.Encoding.utf8)
-        HttpRequest(method: ParseConstant.method, HttpHeader: HttpHeader, HttpBody: HttpBody!, methodType: ParseConstant.MethodType.GET) { (data, error) in
+        
+        let limiter = "?limit=100"
+        var url = "\(ParseConstant.Method.studentLocation)"
+        url.append(limiter)
+        
+        HttpRequest(method: url, HttpHeader: HttpHeader, addOrSetHttpHeader: "add", HttpBody: HttpBody!, methodType: ParseConstant.MethodType.GET) { (data, error) in
             if error == nil {
                 var annotationsArr = [MKPointAnnotation]()
                 guard let results = data["results"] as? [[String:AnyObject]] else {
@@ -22,6 +27,7 @@ class ParseClient {
                     return
                 }
                 var emptyData = false
+                
                 for result in results {
                     guard let latitude = result["latitude"] as? Double else {
                         print("latitude err")
@@ -68,7 +74,12 @@ class ParseClient {
         var studentsAsList = [[String:String]]()
         
         let HttpBody =  "".data(using: String.Encoding.utf8)
-        HttpRequest(method: ParseConstant.method, HttpHeader: ParseConstant.HttpHeader, HttpBody: HttpBody!, methodType: ParseConstant.MethodType.GET) { (data, error) in
+        
+        let limiter = "?limit=100"
+        var url = "\(ParseConstant.Method.studentLocation)"
+        url.append(limiter)
+        
+        HttpRequest(method: url, HttpHeader: ParseConstant.HttpHeader, addOrSetHttpHeader: "add", HttpBody: HttpBody!, methodType: ParseConstant.MethodType.GET) { (data, error) in
             if error == nil {
                 guard let results = data["results"] as? [[String:AnyObject]] else {
                     print("results err")
@@ -102,9 +113,9 @@ class ParseClient {
         var HttpHeader = ParseConstant.HttpHeader
         HttpHeader["application/json"] = "Content-Type"
         
-        HttpRequest(method: ParseConstant.method, HttpHeader: HttpHeader, HttpBody: HttpBody!, methodType: ParseConstant.MethodType.POST) { (result, error) in
+        HttpRequest(method: ParseConstant.Method.studentLocation, HttpHeader: HttpHeader, addOrSetHttpHeader: "add", HttpBody: HttpBody!, methodType: ParseConstant.MethodType.POST) { (result, error) in
             if let err = result["error"] {
-                print("err postStudentLocation")
+                print("err postStudentLocation \(String(describing: err))")
                 return
             }
             
@@ -112,79 +123,89 @@ class ParseClient {
         }
     }
     static func putStudentLocation(objectId: String, mapString:String, mediaURL: String, latitude: CLLocationDegrees, longitude: CLLocationDegrees, handleResult: @escaping () -> Void){
-        let HttpBody = "{\"uniqueKey\": \"\(UdacityConstant.userInfo.accountKey!)\", \"firstName\": \"\(UdacityConstant.userInfo.firstName!)\", \"lastName\": \"\(UdacityConstant.userInfo.lastName!)\",\"mapString\": \"\(mapString)\", \"mediaURL\": \"\(mediaURL)\",\"latitude\": \(latitude.description), \"longitude\": \(longitude.description)}".data(using: String.Encoding.utf8)
+        let HttpBody = "{\"uniqueKey\": \"\(UdacityConstant.userInfo.accountKey!)\", \"firstName\": \"\(UdacityConstant.userInfo.firstName)\", \"lastName\": \"\(UdacityConstant.userInfo.lastName)\",\"mapString\": \"\(mapString)\", \"mediaURL\": \"\(mediaURL)\",\"latitude\": \(latitude.description), \"longitude\": \(longitude.description)}".data(using: String.Encoding.utf8)
         var HttpHeader = ParseConstant.HttpHeader
         HttpHeader["application/json"] = "Content-Type"
         
-        let method = ParseConstant.method + "/\(objectId)"
+        let method = ParseConstant.Method.studentLocation + "/\(objectId)"
         
-        HttpRequest(method: method, HttpHeader: HttpHeader, HttpBody: HttpBody!, methodType: ParseConstant.MethodType.POST) { (result, error) in
-            if let err = result["error"] {
-                print("err postStudentLocation")
+        HttpRequest(method: method, HttpHeader: HttpHeader, addOrSetHttpHeader: "add", HttpBody: HttpBody!, methodType: ParseConstant.MethodType.PUT) { (result, error) in
+            let err = error
+            if err != nil {
+                print("err putStudentLocation \(String(describing: err))")
                 return
             }
-            
             handleResult()
         }
     }
     
-    static func getUserLocation(completeHandler: @escaping(_ result: [String]) -> Void){
-        let HttpBody = "?where={\"uniqueKey\":\"\(UdacityConstant.userInfo.accountKey)\"}".data(using: String.Encoding.utf8)
-        HttpRequest(method: ParseConstant.method, HttpHeader: ParseConstant.HttpHeader, HttpBody: HttpBody!, methodType: ParseConstant.MethodType.GET) { (results, error) in
+    static func getUserLocationObjectId(completeHandler: @escaping(_ result: [String]) -> Void){
+        let optionalParameters = "?where={\"uniqueKey\":\"\( UdacityConstant.userInfo.accountKey.description)\"}"
+        let url = "\(ParseConstant.Method.studentLocation)\(optionalParameters)"
+        
+        let emptyData = Data()
+        
+        HttpRequest(method: url, HttpHeader: ParseConstant.HttpHeader, addOrSetHttpHeader: "add", HttpBody: emptyData, methodType: ParseConstant.MethodType.GET) { (results, error) in
             if error != nil {
                 print("err getUserLocation")
                 return
             }
-            guard var resultsArr = results["results"] as? [[String: AnyObject]] else {
+            guard let resultsArr = results["results"] as? [[String: AnyObject]] else {
                 print("resultArr err getUserLocation()")
                 return
             }
-            
             var objectIdArr = [String]()
             
-            var count = 0
             for result in resultsArr{
-                guard let firstName = result["firstName"] as? String else {
-                    print("getUserLocation firstName err")
-                    resultsArr.remove(at: count)
-                    continue
+                guard let objectId = result["objectId"] as? String else {
+                    print("getUserLocation objectId err")
+                    return
                 }
-                guard let lastName = result["lastName"] as? String else {
-                    print("getUserLocation lastName err")
-                    resultsArr.remove(at: count)
-                    continue
-                }
-                
-                if firstName != UdacityConstant.userInfo.firstName {
-                    resultsArr.remove(at: count)
-                }
-                else if lastName != UdacityConstant.userInfo.lastName {
-                    resultsArr.remove(at: count)
-                }
-                else {
-                    count = count+1
-                    guard let objectId = result["objectId"] as? String else {
-                        print("objectId err getUserLocation")
-                        return
-                    }
-                    objectIdArr.append(objectId)
-                }
+                objectIdArr.append(objectId)
             }
             completeHandler(objectIdArr)
         }
     }
+    static func deleteSession(completeHandler: @escaping () -> Void){
+        var xsrfCookie: HTTPCookie? = nil
+        let sharedCookieStorage = HTTPCookieStorage.shared
+        for cookie in sharedCookieStorage.cookies! {
+            if cookie.name == "XSRF-TOKEN" { xsrfCookie = cookie }
+        }
+        
+        var HttpHeader = [String:String]()
+        if let xsrfCookie = xsrfCookie {
+            HttpHeader[xsrfCookie.value] = "X-XSRF-TOKEN"
+        }
+        
+        let HttpBody = "".data(using: .utf8)
+        
+        HttpRequest(method: ParseConstant.Method.session, HttpHeader: HttpHeader, addOrSetHttpHeader: "set", HttpBody: HttpBody!, methodType: ParseConstant.MethodType.DELETE) { (data, error) in
+            if error != nil {
+                print("err deleteSession")
+                return
+            }
+            print(data)
+            completeHandler()
+        }
+    }
 
-    private static func HttpRequest(method: String, HttpHeader: [String:String], HttpBody: Data, methodType:String, handleResult: @escaping (_ result: AnyObject, _ error: String?) -> Void){
+    private static func HttpRequest(method: String, HttpHeader: [String:String], addOrSetHttpHeader: String, HttpBody: Data, methodType:String, handleResult: @escaping (_ result: AnyObject, _ error: String?) -> Void){
+
+        let url = method.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
         
-        let limiter = "?limit=100"
-        let url = "\(method)\(limiter)"
-        
-        let request = NSMutableURLRequest(url: URL(string: url)!)
+        let request = NSMutableURLRequest(url: URL(string: url!)!)
         request.httpMethod = methodType
-        request.timeoutInterval = 120;
         
-        for(key,value) in HttpHeader {
-            request.addValue(key, forHTTPHeaderField: value)
+        if addOrSetHttpHeader == "add" {
+            for(key,value) in HttpHeader {
+                request.addValue(key, forHTTPHeaderField: value)
+            }
+        }
+        else {
+            for(key,value) in HttpHeader {
+                request.setValue(key, forHTTPHeaderField: value)
+            }
         }
 
         request.httpBody = HttpBody

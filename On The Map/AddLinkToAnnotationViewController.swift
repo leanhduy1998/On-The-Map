@@ -38,17 +38,16 @@ class AddLinkToAnnotationViewController: UIViewController, MKMapViewDelegate,CLL
         annotation.subtitle = linkTF.text
         MapViewController.annotations.append(annotation)
         
-        var count = 0
         if ParseConstant.userData.annotationObjectIdArr.count > 0 {
+            var sent = false
             for objectId in ParseConstant.userData.annotationObjectIdArr {
                 ParseClient.putStudentLocation(objectId: objectId, mapString: mapString, mediaURL: linkTF.text!, latitude: annotation
                     .coordinate.latitude, longitude: annotation.coordinate.longitude, handleResult: {
-                        count = count + 1
-                        DispatchQueue.main.async {
-                            if count == ParseConstant.userData.annotationObjectIdArr.count {
-                                count = 0
+                        if !sent {
+                            DispatchQueue.main.async {
                                 self.performSegue(withIdentifier: "unwindBackToMapview", sender: self)
                             }
+                            sent = true
                         }
                 })
             }
