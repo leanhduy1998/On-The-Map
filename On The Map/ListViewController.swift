@@ -9,7 +9,8 @@
 import UIKit
 
 class ListViewController: UITableViewController {
-    static var studentsAsList = [[String:String]]()
+    let delegate = UIApplication.shared.delegate as? AppDelegate
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableView.reloadData()
@@ -17,20 +18,25 @@ class ListViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return ListViewController.studentsAsList.count
+        return delegate!.studentsAsList.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "StudentViewCell", for: indexPath) as? StudentViewCell
-        let currentStudent = ListViewController.studentsAsList[indexPath.row]
+        let currentStudent = delegate!.studentsAsList[indexPath.row]
         cell?.studentNameLabel.text = currentStudent.keys.first
 
         return cell!
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let currentStudent = ListViewController.studentsAsList[indexPath.row]
-        UIApplication.shared.open(NSURL(string: currentStudent.values.first!)! as URL, options: [:], completionHandler: nil)
+        let currentStudent = delegate!.studentsAsList[indexPath.row]
+        if(currentStudent.values.first?.isEmpty)!{
+            
+        }
+        else {
+            UIApplication.shared.open(NSURL(string: currentStudent.values.first!)! as URL, options: [:], completionHandler: nil)
+        }
 
     }
     @IBAction func addPinBtnPressed(_ sender: Any) {
@@ -51,10 +57,18 @@ class ListViewController: UITableViewController {
         refreshData()
     }
     private func refreshData(){
-        ParseClient.getStudentsLocationsAsList(completeHandler: { (studentsArr) in
-            ListViewController.studentsAsList = studentsArr
-            self.tableView.reloadData()
-        })
+        if (delegate?.isInternetAvailable())! {
+            ParseClient.getStudentsLocationsAsList(completeHandler: { (studentsArr) in
+                self.delegate!.studentsAsList = studentsArr
+                self.tableView.reloadData()
+            })
+        }
+        else {
+            let alertController = UIAlertController(title: "Device is not connected to Internet", message: "", preferredStyle: UIAlertControllerStyle.alert)
+            alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.cancel, handler: nil))
+            self.present(alertController, animated: true, completion: nil)
+        }
+        
     }
 
 

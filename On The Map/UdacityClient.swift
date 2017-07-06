@@ -59,12 +59,12 @@ class UdacityClient {
             }
             UdacityConstant.userInfo.id = id
             
-            
+            let delegate = UIApplication.shared.delegate as? AppDelegate
             DispatchQueue.main.async {
                 ParseClient.getStudentsLocationMap(completeHandler: { (annotations) in
-                    MapViewController.annotations = annotations!
+                    delegate?.annotations = annotations!
                     ParseClient.getStudentsLocationsAsList(completeHandler: { (studentList) in
-                        ListViewController.studentsAsList = studentList
+                        delegate!.studentsAsList = studentList
                         UdacityClient.getUserPublicData(completeHandler: {
                             ParseClient.getUserLocationObjectId(completeHandler: { (result) in
                                 ParseConstant.userData.annotationObjectIdArr = result

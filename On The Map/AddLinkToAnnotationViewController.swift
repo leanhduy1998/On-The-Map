@@ -16,6 +16,7 @@ class AddLinkToAnnotationViewController: UIViewController, MKMapViewDelegate,CLL
     
     var annotation = MKPointAnnotation()
     var mapString = String()
+    let delegate = UIApplication.shared.delegate as? AppDelegate
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool
     {
@@ -36,19 +37,28 @@ class AddLinkToAnnotationViewController: UIViewController, MKMapViewDelegate,CLL
     
     @IBAction func submitBtnClicked(_ sender: Any) {
         annotation.subtitle = linkTF.text
-        MapViewController.annotations.append(annotation)
+        delegate?.annotations.append(annotation)
         
         if ParseConstant.userData.annotationObjectIdArr.count > 0 {
             var sent = false
             for objectId in ParseConstant.userData.annotationObjectIdArr {
                 ParseClient.putStudentLocation(objectId: objectId, mapString: mapString, mediaURL: linkTF.text!, latitude: annotation
-                    .coordinate.latitude, longitude: annotation.coordinate.longitude, handleResult: {
-                        if !sent {
-                            DispatchQueue.main.async {
-                                self.performSegue(withIdentifier: "unwindBackToMapview", sender: self)
+                    .coordinate.latitude, longitude: annotation.coordinate.longitude, handleResult: { error in
+                        if error.isEmpty {
+                            if !sent {
+                                DispatchQueue.main.async {
+                                    self.performSegue(withIdentifier: "unwindBackToMapview", sender: self)
+                                }
+                                sent = true
                             }
-                            sent = true
                         }
+                        else {
+                            let alertController = UIAlertController(title: "Error updating your location!", message: error, preferredStyle: UIAlertControllerStyle.alert)
+                            alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.cancel, handler: nil))
+                            self.present(alertController, animated: true, completion: nil)
+
+                        }
+                        
                 })
             }
         }

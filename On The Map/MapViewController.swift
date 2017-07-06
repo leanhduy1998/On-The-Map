@@ -12,11 +12,12 @@ import MapKit
 class MapViewController: UIViewController, MKMapViewDelegate  {
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var addPinBtn: UIBarButtonItem!
-
     @IBOutlet weak var refreshBtn: UIButton!
-
     @IBOutlet weak var loadingDataLabel: UILabel!
-    static var annotations = [MKAnnotation]()
+    
+    
+    let delegate = UIApplication.shared.delegate as? AppDelegate
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -77,10 +78,18 @@ class MapViewController: UIViewController, MKMapViewDelegate  {
     }
 
     @IBAction func refreshBtnPressed(_ sender: Any) {
-        refreshData()
+        if (delegate?.isInternetAvailable())! {
+            refreshData()
+        }
+        else {
+            let alertController = UIAlertController(title: "Device is not connected to Internet", message: "", preferredStyle: UIAlertControllerStyle.alert)
+            alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.cancel, handler: nil))
+            self.present(alertController, animated: true, completion: nil)
+        }
+        
     }
     func refreshData(){
-        self.mapView.removeAnnotations(self.mapView.annotations)
-        self.mapView.addAnnotations(MapViewController.annotations)
+        mapView.removeAnnotations(mapView.annotations)
+        mapView.addAnnotations((delegate?.annotations)!)
     }
 }

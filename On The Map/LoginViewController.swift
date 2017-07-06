@@ -12,21 +12,29 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var usernameTF: UITextField!
     @IBOutlet weak var passwordTF: UITextField!
     @IBOutlet weak var loginBtn: UIButton!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         usernameTF.delegate = self
         passwordTF.delegate = self
     }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        unsubscribeFromKeyboardNotifications()
+    }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool
-    {
-        textField.resignFirstResponder()
-        return true;
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if ParseConstant.applicationID != "QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr" || ParseConstant.RESTAPIKey != "QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY" {
+            showAlert(title: "Wrong Application ID or REST API Key", message: "Please check your Application ID and REST API Key again!")
+        }
+        subscribeToKeyboardNotifications()
+        isLoading(isLoading: false)
     }
     
 
-    
     @IBAction func loginBtnPressed(_ sender: Any) {
         isLoading(isLoading: true)
         if validateTFs() == true {
@@ -50,6 +58,15 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
         usernameTF.isEnabled = !isLoading
         passwordTF.isEnabled = !isLoading
         loginBtn.isEnabled = !isLoading
+        activityIndicator.isHidden = !isLoading
+        
+        if isLoading {
+           activityIndicator.startAnimating()
+        }
+        else {
+            activityIndicator.stopAnimating()
+        }
+        
     }
     @IBAction func signUpBtnPressed(_ sender: Any) {
         UIApplication.shared.open(NSURL(string: "https://www.udacity.com/account/auth#!/signup")! as URL, options: [:], completionHandler: nil)
@@ -80,3 +97,33 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
  
 }
 
+extension LoginViewController {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool{
+        textField.resignFirstResponder()
+        return true
+    }
+    func keyboardWillShow(_ notification:Notification) {
+        if usernameTF.isEditing || passwordTF.isEditing {
+            view.frame.origin.y -=  getKeyboardHeight(notification)
+        }
+    }
+    func keyboardWillHide(_ notification:Notification){
+        view.frame.origin.y = 0
+    }
+    
+    func getKeyboardHeight(_ notification:Notification) -> CGFloat {
+        let userInfo = notification.userInfo
+        let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue // of CGRect
+        return keyboardSize.cgRectValue.height
+    }
+    
+    func subscribeToKeyboardNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: .UIKeyboardDidHide, object: nil)
+    }
+    
+    func unsubscribeFromKeyboardNotifications() {
+        NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillShow, object: nil)
+    }
+}
