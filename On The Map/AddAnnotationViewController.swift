@@ -50,7 +50,7 @@ class AddAnnotationViewController: UIViewController,UITextFieldDelegate  {
                 return
             }
             
-            self.annotation.title = "\(UdacityConstant.userInfo.firstName) \(UdacityConstant.userInfo.lastName)"
+            self.annotation.title = "\(UdacityConstant.userInfo.firstName.description) \(UdacityConstant.userInfo.lastName.description)"
             self.annotation.coordinate = CLLocationCoordinate2D(latitude: localSearchResponse!.boundingRegion.center.latitude, longitude:     localSearchResponse!.boundingRegion.center.longitude)
 
             DispatchQueue.main.async {
