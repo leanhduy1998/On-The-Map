@@ -78,7 +78,7 @@ class MapViewController: UIViewController, MKMapViewDelegate  {
     }
 
     @IBAction func refreshBtnPressed(_ sender: Any) {
-        if (delegate?.isInternetAvailable())! {
+        if (ParseClient.isInternetAvailable()) {
             refreshData()
         }
         else {
@@ -90,6 +90,17 @@ class MapViewController: UIViewController, MKMapViewDelegate  {
     }
     func refreshData(){
         mapView.removeAnnotations(mapView.annotations)
-        mapView.addAnnotations((delegate?.annotations)!)
+        ParseClient.getStudentsLocationMap { (annotations, error) in
+            if error.isEmpty {
+                DispatchQueue.main.async {
+                    self.mapView.addAnnotations((annotations)!)
+                }
+            }
+            else {
+                let alertController = UIAlertController(title: error, message: "", preferredStyle: UIAlertControllerStyle.alert)
+                alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.cancel, handler: nil))
+                self.present(alertController, animated: true, completion: nil)
+            }
+        }
     }
 }

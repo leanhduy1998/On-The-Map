@@ -24,6 +24,7 @@
 		24CBF6401EF890D1000FCE51 /* ParseConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CBF63F1EF890D1000FCE51 /* ParseConstant.swift */; };
 		24CBF6421EF8A2D3000FCE51 /* ParseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CBF6411EF8A2D3000FCE51 /* ParseClient.swift */; };
 		24CBF6441EF8A35E000FCE51 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CBF6431EF8A35E000FCE51 /* MapViewController.swift */; };
+		24FF57C91F1AADBB003C9B58 /* StudentInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FF57C81F1AADBB003C9B58 /* StudentInformation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +68,7 @@
 		24CBF63F1EF890D1000FCE51 /* ParseConstant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseConstant.swift; sourceTree = "<group>"; };
 		24CBF6411EF8A2D3000FCE51 /* ParseClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseClient.swift; sourceTree = "<group>"; };
 		24CBF6431EF8A35E000FCE51 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		24FF57C81F1AADBB003C9B58 /* StudentInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentInformation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +162,7 @@
 			isa = PBXGroup;
 			children = (
 				2493ABA91EF475F000B5C986 /* Client */,
+				24FF57C81F1AADBB003C9B58 /* StudentInformation.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -370,6 +373,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				24FF57C91F1AADBB003C9B58 /* StudentInformation.swift in Sources */,
 				24CBF6421EF8A2D3000FCE51 /* ParseClient.swift in Sources */,
 				24CBF6401EF890D1000FCE51 /* ParseConstant.swift in Sources */,
 				24CBF63A1EF75A43000FCE51 /* UdacityClient.swift in Sources */,

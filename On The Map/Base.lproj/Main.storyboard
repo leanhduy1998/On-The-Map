@@ -8,6 +8,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -226,31 +227,37 @@
                             <outlet property="delegate" destination="wm3-0v-zCs" id="bfu-8T-w01"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="On The Map" id="A9g-K5-NPH">
-                        <barButtonItem key="leftBarButtonItem" title="Item" style="plain" id="Ce8-4i-yQD">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="wXG-ug-yEu">
-                                <rect key="frame" x="20" y="7" width="83" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="icon_pin"/>
-                                <connections>
-                                    <action selector="addPinBtnClicked:" destination="Ay5-Ae-gmW" eventType="touchUpInside" id="z4O-2I-KSf"/>
-                                    <action selector="addPinBtnPressed:" destination="wm3-0v-zCs" eventType="touchUpInside" id="Tkh-4g-Ggt"/>
-                                </connections>
-                            </button>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="xWu-ku-1UL">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Ly5-hq-vS7">
-                                <rect key="frame" x="316" y="10" width="78" height="24"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="icon_refresh"/>
-                                <connections>
-                                    <action selector="refreshBtnPressed:" destination="wm3-0v-zCs" eventType="touchUpInside" id="mFc-Tf-E7K"/>
-                                </connections>
-                            </button>
+                    <navigationItem key="navigationItem" title="On The Map" id="3Br-yi-aOi">
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="WZx-KI-lJQ">
                             <connections>
-                                <action selector="refreshBtnPressed:" destination="Ay5-Ae-gmW" id="lxm-fB-0eN"/>
+                                <action selector="signOutBtnPressed:" destination="wm3-0v-zCs" id="h0d-OS-Tac"/>
                             </connections>
                         </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem title="Item" style="plain" id="GLm-UW-3e9">
+                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="qV8-wr-itf">
+                                    <rect key="frame" x="354" y="7" width="40" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" image="icon_pin"/>
+                                    <connections>
+                                        <action selector="addPinBtnPressed:" destination="wm3-0v-zCs" eventType="touchUpInside" id="Jpd-Jq-Vhv"/>
+                                    </connections>
+                                </button>
+                            </barButtonItem>
+                            <barButtonItem style="plain" id="vpt-e0-wGR">
+                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="inM-Tn-DKs">
+                                    <rect key="frame" x="306" y="10" width="40" height="24"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" image="icon_refresh"/>
+                                    <connections>
+                                        <action selector="refreshBtnPressed:" destination="wm3-0v-zCs" eventType="touchUpInside" id="V3u-fF-hgV"/>
+                                    </connections>
+                                </button>
+                                <connections>
+                                    <action selector="refreshBtnPressed:" destination="Ay5-Ae-gmW" id="wlg-Cj-2iT"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hs8-1v-WfH" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -292,24 +299,9 @@
                                     <outlet property="delegate" destination="Ay5-Ae-gmW" id="j90-bq-Zzs"/>
                                 </connections>
                             </mapView>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aD7-92-qqZ">
-                                <rect key="frame" x="0.0" y="643" width="414" height="44"/>
-                                <items>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="xBI-5M-FD1"/>
-                                    <barButtonItem title="Sign out" id="mKI-qz-9iI">
-                                        <connections>
-                                            <action selector="signOutBtnPressed:" destination="Ay5-Ae-gmW" id="c8v-hw-qhG"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="uY7-1i-wmF"/>
-                                </items>
-                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="QJO-SA-FjO" firstAttribute="top" secondItem="aD7-92-qqZ" secondAttribute="bottom" id="6L5-er-HYq"/>
-                            <constraint firstAttribute="trailing" secondItem="aD7-92-qqZ" secondAttribute="trailing" id="AAI-wg-k3L"/>
-                            <constraint firstItem="aD7-92-qqZ" firstAttribute="leading" secondItem="0gY-gc-A6d" secondAttribute="leading" id="EX8-LD-Xwy"/>
                             <constraint firstAttribute="trailing" secondItem="YVi-7V-8AY" secondAttribute="trailing" id="XLk-Zc-8bv"/>
                             <constraint firstItem="YVi-7V-8AY" firstAttribute="leading" secondItem="0gY-gc-A6d" secondAttribute="leading" id="Xvy-60-sgA"/>
                             <constraint firstItem="YVi-7V-8AY" firstAttribute="top" secondItem="QoO-st-W9T" secondAttribute="bottom" id="o3a-Sc-qke"/>
@@ -317,26 +309,33 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="On The Map" id="HsM-vY-cUo">
-                        <barButtonItem key="leftBarButtonItem" title="Item" style="plain" id="vej-n2-gMb">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="yqH-3I-uGw">
-                                <rect key="frame" x="20" y="7" width="83" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="icon_pin"/>
-                                <connections>
-                                    <action selector="addPinBtnClicked:" destination="Ay5-Ae-gmW" eventType="touchUpInside" id="O5m-y1-4wU"/>
-                                </connections>
-                            </button>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="lW3-y7-Aw4">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="afT-Zb-gyA">
-                                <rect key="frame" x="316" y="10" width="78" height="24"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="icon_refresh"/>
-                            </button>
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="mKI-qz-9iI">
                             <connections>
-                                <action selector="refreshBtnPressed:" destination="Ay5-Ae-gmW" id="bAX-Eq-tUn"/>
+                                <action selector="signOutBtnPressed:" destination="Ay5-Ae-gmW" id="c8v-hw-qhG"/>
                             </connections>
                         </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem title="Item" style="plain" id="vej-n2-gMb">
+                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="yqH-3I-uGw">
+                                    <rect key="frame" x="354" y="7" width="40" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" image="icon_pin"/>
+                                    <connections>
+                                        <action selector="addPinBtnClicked:" destination="Ay5-Ae-gmW" eventType="touchUpInside" id="O5m-y1-4wU"/>
+                                    </connections>
+                                </button>
+                            </barButtonItem>
+                            <barButtonItem style="plain" id="lW3-y7-Aw4">
+                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="afT-Zb-gyA">
+                                    <rect key="frame" x="306" y="10" width="40" height="24"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" image="icon_refresh"/>
+                                </button>
+                                <connections>
+                                    <action selector="refreshBtnPressed:" destination="Ay5-Ae-gmW" id="bAX-Eq-tUn"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="addPinBtn" destination="vej-n2-gMb" id="YPy-xn-3Mu"/>

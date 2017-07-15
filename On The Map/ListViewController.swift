@@ -9,7 +9,8 @@
 import UIKit
 
 class ListViewController: UITableViewController {
-    let delegate = UIApplication.shared.delegate as? AppDelegate
+    
+    var studentList = [StudentInformation]()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -18,24 +19,27 @@ class ListViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return delegate!.studentsAsList.count
+        return studentList.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "StudentViewCell", for: indexPath) as? StudentViewCell
-        let currentStudent = delegate!.studentsAsList[indexPath.row]
-        cell?.studentNameLabel.text = currentStudent.keys.first
+        let currentStudent = studentList[indexPath.row]
+        cell?.studentNameLabel.text = "\(currentStudent.firstName.description) \(currentStudent.lastName.description)"
 
         return cell!
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let currentStudent = delegate!.studentsAsList[indexPath.row]
-        if(currentStudent.values.first?.isEmpty)!{
-            
-        }
-        else {
-            UIApplication.shared.open(NSURL(string: currentStudent.values.first!)! as URL, options: [:], completionHandler: nil)
+        let currentStudent = studentList[indexPath.row]
+        if(!currentStudent.mediaURL.isEmpty){
+            UIApplication.shared.open(NSURL(string: currentStudent.mediaURL)! as URL, options: [:], completionHandler: { (completed) in
+                if !completed {
+                    let alertController = UIAlertController(title: "This link cannot be open", message: "This link is either incompleted or empty!", preferredStyle: UIAlertControllerStyle.alert)
+                    alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.cancel, handler: nil))
+                    self.present(alertController, animated: true, completion: nil)
+                }
+            })
         }
 
     }
@@ -50,17 +54,31 @@ class ListViewController: UITableViewController {
             performSegue(withIdentifier: "AddAnnotationViewController", sender: self)
         }
     }
+    
     private func overrideAlertController(action: UIAlertAction){
         performSegue(withIdentifier: "AddAnnotationViewController", sender: self)
     }
+    
     @IBAction func refreshBtnPressed(_ sender: Any) {
         refreshData()
     }
+    
+    @IBAction func signOutBtnPressed(_ sender: Any) {
+        ParseClient.deleteSession(completeHandler: {
+            DispatchQueue.main.async {
+                self.dismiss(animated: true, completion: nil)
+            }
+        })
+    }
+    
+    
     private func refreshData(){
-        if (delegate?.isInternetAvailable())! {
+        if (ParseClient.isInternetAvailable()) {
             ParseClient.getStudentsLocationsAsList(completeHandler: { (studentsArr) in
-                self.delegate!.studentsAsList = studentsArr
-                self.tableView.reloadData()
+                DispatchQueue.main.async {
+                    self.studentList = studentsArr
+                    self.tableView.reloadData()
+                }
             })
         }
         else {
@@ -68,9 +86,5 @@ class ListViewController: UITableViewController {
             alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.cancel, handler: nil))
             self.present(alertController, animated: true, completion: nil)
         }
-        
     }
-
-
-
 }

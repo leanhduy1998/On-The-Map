@@ -37,7 +37,6 @@ class AddLinkToAnnotationViewController: UIViewController, MKMapViewDelegate,CLL
     
     @IBAction func submitBtnClicked(_ sender: Any) {
         annotation.subtitle = linkTF.text
-        delegate?.annotations.append(annotation)
         
         if ParseConstant.userData.annotationObjectIdArr.count > 0 {
             var sent = false
@@ -56,7 +55,6 @@ class AddLinkToAnnotationViewController: UIViewController, MKMapViewDelegate,CLL
                             let alertController = UIAlertController(title: "Error updating your location!", message: error, preferredStyle: UIAlertControllerStyle.alert)
                             alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.cancel, handler: nil))
                             self.present(alertController, animated: true, completion: nil)
-
                         }
                         
                 })

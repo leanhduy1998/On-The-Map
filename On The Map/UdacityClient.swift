@@ -59,7 +59,14 @@ class UdacityClient {
             }
             UdacityConstant.userInfo.id = id
             
-            let delegate = UIApplication.shared.delegate as? AppDelegate
+            UdacityClient.getUserPublicData(completeHandler: {
+                ParseClient.getUserLocationObjectId(completeHandler: { (result) in
+                    ParseConstant.userData.annotationObjectIdArr = result
+                    completionHandler("","")
+                })
+            })
+            
+            /*
             DispatchQueue.main.async {
                 ParseClient.getStudentsLocationMap(completeHandler: { (annotations) in
                     delegate?.annotations = annotations!
@@ -74,6 +81,7 @@ class UdacityClient {
                     })
                 })
             }
+ */
         }
         task.resume()
     }

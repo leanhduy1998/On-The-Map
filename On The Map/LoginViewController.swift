@@ -100,6 +100,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
 extension LoginViewController {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool{
         textField.resignFirstResponder()
+        loginBtnPressed(self)
         return true
     }
     func keyboardWillShow(_ notification:Notification) {
