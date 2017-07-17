@@ -243,6 +243,9 @@
                                         <action selector="addPinBtnPressed:" destination="wm3-0v-zCs" eventType="touchUpInside" id="Jpd-Jq-Vhv"/>
                                     </connections>
                                 </button>
+                                <connections>
+                                    <segue destination="Taw-vN-eee" kind="show" identifier="AddAnnotationViewController" id="icm-df-6zF"/>
+                                </connections>
                             </barButtonItem>
                             <barButtonItem style="plain" id="vpt-e0-wGR">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="inM-Tn-DKs">
@@ -423,7 +426,7 @@
                                     <action selector="findBtnPressed:" destination="Taw-vN-eee" eventType="touchUpInside" id="1ts-kb-P6u"/>
                                 </connections>
                             </button>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="5Tp-sl-Nky">
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="5Tp-sl-Nky">
                                 <rect key="frame" x="379" y="358" width="20" height="20"/>
                                 <color key="color" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </activityIndicatorView>
@@ -633,4 +636,7 @@
         <image name="icon_refresh" width="24" height="24"/>
         <image name="logo-u" width="62" height="62"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="icm-df-6zF"/>
+    </inferredMetricsTieBreakers>
 </document>

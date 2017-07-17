@@ -37,6 +37,9 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
 
     @IBAction func loginBtnPressed(_ sender: Any) {
         isLoading(isLoading: true)
+        if !ParseClient.isInternetAvailable() {
+            showAlert(title: "Internet Connection Not Available", message: "Please connect to the internet!")
+        }
         if validateTFs() == true {
             UdacityClient.login(username: usernameTF.text!, password: passwordTF.text!, completionHandler: {title, message in
                 if title.isEmpty {
@@ -75,10 +78,12 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
     func validateTFs() -> Bool{
         if (usernameTF.text?.isEmpty)! {
             showAlert(title: UdacityConstant.LoginError.usernameTitle, message: UdacityConstant.LoginError.usernameMessage)
+            isLoading(isLoading: false)
             return false
         }
         else if (passwordTF.text?.isEmpty)! {
             showAlert(title: UdacityConstant.LoginError.passwordTitle, message: UdacityConstant.LoginError.passwordMessage)
+            isLoading(isLoading: false)
             return false
         }
         return true

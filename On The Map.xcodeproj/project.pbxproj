@@ -25,6 +25,7 @@
 		24CBF6421EF8A2D3000FCE51 /* ParseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CBF6411EF8A2D3000FCE51 /* ParseClient.swift */; };
 		24CBF6441EF8A35E000FCE51 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CBF6431EF8A35E000FCE51 /* MapViewController.swift */; };
 		24FF57C91F1AADBB003C9B58 /* StudentInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FF57C81F1AADBB003C9B58 /* StudentInformation.swift */; };
+		24FF57CB1F1D289E003C9B58 /* StudentDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FF57CA1F1D289E003C9B58 /* StudentDataSource.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +70,7 @@
 		24CBF6411EF8A2D3000FCE51 /* ParseClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseClient.swift; sourceTree = "<group>"; };
 		24CBF6431EF8A35E000FCE51 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		24FF57C81F1AADBB003C9B58 /* StudentInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentInformation.swift; sourceTree = "<group>"; };
+		24FF57CA1F1D289E003C9B58 /* StudentDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentDataSource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +165,7 @@
 			children = (
 				2493ABA91EF475F000B5C986 /* Client */,
 				24FF57C81F1AADBB003C9B58 /* StudentInformation.swift */,
+				24FF57CA1F1D289E003C9B58 /* StudentDataSource.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -379,6 +382,7 @@
 				24CBF63A1EF75A43000FCE51 /* UdacityClient.swift in Sources */,
 				245DB9A71EF9E84600CDE0C0 /* ListViewController.swift in Sources */,
 				245DB9AD1EFDADD500CDE0C0 /* AddLinkToAnnotationViewController.swift in Sources */,
+				24FF57CB1F1D289E003C9B58 /* StudentDataSource.swift in Sources */,
 				245DB9A91EFB2FE700CDE0C0 /* StudentViewCell.swift in Sources */,
 				245DB9AB1EFC598D00CDE0C0 /* AddAnnotationViewController.swift in Sources */,
 				24CBF6361EF74377000FCE51 /* UdacityConstant.swift in Sources */,

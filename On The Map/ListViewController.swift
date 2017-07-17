@@ -10,7 +10,7 @@ import UIKit
 
 class ListViewController: UITableViewController {
     
-    var studentList = [StudentInformation]()
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -19,19 +19,25 @@ class ListViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return studentList.count
+        return StudentDataSource.sharedInstance.studentData.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "StudentViewCell", for: indexPath) as? StudentViewCell
-        let currentStudent = studentList[indexPath.row]
-        cell?.studentNameLabel.text = "\(currentStudent.firstName.description) \(currentStudent.lastName.description)"
+        let currentStudent = StudentDataSource.sharedInstance.studentData[indexPath.row]
+        
+        if currentStudent.firstName == nil || currentStudent.lastName == nil {
+            
+        }
+        else {
+            cell?.studentNameLabel.text = "\(currentStudent.firstName.description) \(currentStudent.lastName.description)"
+        }
 
         return cell!
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let currentStudent = studentList[indexPath.row]
+        let currentStudent = StudentDataSource.sharedInstance.studentData[indexPath.row]
         if(!currentStudent.mediaURL.isEmpty){
             UIApplication.shared.open(NSURL(string: currentStudent.mediaURL)! as URL, options: [:], completionHandler: { (completed) in
                 if !completed {
@@ -41,8 +47,8 @@ class ListViewController: UITableViewController {
                 }
             })
         }
-
     }
+    
     @IBAction func addPinBtnPressed(_ sender: Any) {
         if ParseConstant.userData.annotationObjectIdArr.count > 0 {
             let alertController = UIAlertController(title: "Your location already exist", message: "Do you want to override your location?", preferredStyle: UIAlertControllerStyle.alert)
@@ -76,7 +82,7 @@ class ListViewController: UITableViewController {
         if (ParseClient.isInternetAvailable()) {
             ParseClient.getStudentsLocationsAsList(completeHandler: { (studentsArr) in
                 DispatchQueue.main.async {
-                    self.studentList = studentsArr
+                    StudentDataSource.sharedInstance.studentData = studentsArr
                     self.tableView.reloadData()
                 }
             })

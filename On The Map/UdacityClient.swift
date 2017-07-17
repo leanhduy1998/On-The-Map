@@ -19,7 +19,7 @@ class UdacityClient {
         let session = URLSession.shared
         let task = session.dataTask(with: request as URLRequest) { data, response, error in
             if error != nil {
-                completionHandler("Error login", error.debugDescription)
+                completionHandler("Error login", "Cannot make Http request!")
                 return
             }
             let range = Range(5..<data!.count)
@@ -37,7 +37,7 @@ class UdacityClient {
                         print("status code err err")
                         return
                     }
-                    completionHandler(UdacityConstant.LoginError.couldNotLogin, err)
+                    completionHandler(UdacityConstant.LoginError.couldNotLogin, String.init(format: "Status code: %d", statusCode))
                     return
                 }
                 return
@@ -66,22 +66,6 @@ class UdacityClient {
                 })
             })
             
-            /*
-            DispatchQueue.main.async {
-                ParseClient.getStudentsLocationMap(completeHandler: { (annotations) in
-                    delegate?.annotations = annotations!
-                    ParseClient.getStudentsLocationsAsList(completeHandler: { (studentList) in
-                        delegate!.studentsAsList = studentList
-                        UdacityClient.getUserPublicData(completeHandler: {
-                            ParseClient.getUserLocationObjectId(completeHandler: { (result) in
-                                ParseConstant.userData.annotationObjectIdArr = result
-                                completionHandler("","")
-                            })
-                        })
-                    })
-                })
-            }
- */
         }
         task.resume()
     }

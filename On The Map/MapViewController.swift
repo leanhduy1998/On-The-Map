@@ -15,10 +15,7 @@ class MapViewController: UIViewController, MKMapViewDelegate  {
     @IBOutlet weak var refreshBtn: UIButton!
     @IBOutlet weak var loadingDataLabel: UILabel!
     
-    
-    let delegate = UIApplication.shared.delegate as? AppDelegate
-    
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         refreshData()
@@ -64,8 +61,14 @@ class MapViewController: UIViewController, MKMapViewDelegate  {
         return pinAnnotationView
     }
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-        if let annotation = view.annotation {
-            UIApplication.shared.open(NSURL(string: annotation.subtitle!!)! as URL, options: [:], completionHandler: nil)
+        if let annotation = view.annotation as? MKPointAnnotation {
+                UIApplication.shared.open(NSURL(string: annotation.subtitle!)! as URL, options: [:], completionHandler: { (completed) in
+                    if !completed {
+                        let alertController = UIAlertController(title: "This link cannot be open", message: "This link is either incompleted or empty!", preferredStyle: UIAlertControllerStyle.alert)
+                        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.cancel, handler: nil))
+                        self.present(alertController, animated: true, completion: nil)
+                    }
+                })
         }
     }
     
@@ -90,10 +93,15 @@ class MapViewController: UIViewController, MKMapViewDelegate  {
     }
     func refreshData(){
         mapView.removeAnnotations(mapView.annotations)
-        ParseClient.getStudentsLocationMap { (annotations, error) in
+        ParseClient.getStudentsLocationMap { (studentInfoArr, error) in
             if error.isEmpty {
                 DispatchQueue.main.async {
-                    self.mapView.addAnnotations((annotations)!)
+                    StudentDataSource.sharedInstance.studentData = studentInfoArr!
+                    self.mapView.removeAnnotations(self.mapView.annotations)
+                    
+                    for student in studentInfoArr! {
+                        self.mapView.addAnnotation(student.annotation)
+                    }
                 }
             }
             else {

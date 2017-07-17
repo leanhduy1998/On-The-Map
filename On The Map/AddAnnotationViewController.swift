@@ -23,10 +23,6 @@ class AddAnnotationViewController: UIViewController,UITextFieldDelegate  {
         super.viewDidLoad()
         searchTF.delegate = self
     }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        isLoading(isLoading: false)
-    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool
     {
@@ -35,7 +31,7 @@ class AddAnnotationViewController: UIViewController,UITextFieldDelegate  {
     }
     
     @IBAction func findBtnPressed(_ sender: Any) {
-        isLoading(isLoading: true)
+        activityIndicator.startAnimating()
         let localSearchRequest = MKLocalSearchRequest()
         localSearchRequest.naturalLanguageQuery = searchTF.text
         
@@ -43,10 +39,12 @@ class AddAnnotationViewController: UIViewController,UITextFieldDelegate  {
         
         localSearch.start { (localSearchResponse, error) -> Void in
             if localSearchResponse == nil {
-                self.isLoading(isLoading: false)
-                let alertController = UIAlertController(title: nil, message: "Place Not Found", preferredStyle: UIAlertControllerStyle.alert)
-                alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default, handler: nil))
-                self.present(alertController, animated: true, completion: nil)
+                DispatchQueue.main.async {
+                    self.activityIndicator.stopAnimating()
+                    let alertController = UIAlertController(title: nil, message: "Place Not Found", preferredStyle: UIAlertControllerStyle.alert)
+                    alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default, handler: nil))
+                    self.present(alertController, animated: true, completion: nil)
+                }
                 return
             }
             
@@ -55,18 +53,11 @@ class AddAnnotationViewController: UIViewController,UITextFieldDelegate  {
 
             DispatchQueue.main.async {
                 self.displayAddLink()
+                self.activityIndicator.stopAnimating()
             }
         }
     }
-    private func isLoading(isLoading: Bool){
-        activityIndicator.isHidden = !isLoading
-        if isLoading {
-            activityIndicator.startAnimating()
-        }
-        else {
-            activityIndicator.stopAnimating()
-        }
-    }
+
     
     func displayAddLink(){
         performSegue(withIdentifier: "AddLinkToAnnotationViewController", sender: self)

@@ -12,29 +12,29 @@ import SystemConfiguration
 
 class ParseClient {
     
-    static func getStudentsLocationMap(completeHandler: @escaping (_ annotions: [MKPointAnnotation]?, _ error: String) -> Void){
+    static func getStudentsLocationMap(completeHandler: @escaping (_ studentInfo: [StudentInformation]?, _ error: String) -> Void){
         let HttpHeader = [ParseConstant.applicationID:"X-Parse-Application-Id",ParseConstant.RESTAPIKey:"X-Parse-REST-API-Key"]
         let HttpBody =  "".data(using: String.Encoding.utf8)
         
         let limiter = "?limit=100"
-   //     let order = "?order=-updatedAt"
+        let order = "&order=-updatedAt"
         var url = "\(ParseConstant.Method.studentLocation)"
         url.append(limiter)
-   //     url.append(order)
+        url.append(order)
         
         HttpRequest(method: url, HttpHeader: HttpHeader, addOrSetHttpHeader: "add", HttpBody: HttpBody!, methodType: ParseConstant.MethodType.GET) { (data, error) in
             if error == nil {
-                var annotationsArr = [MKPointAnnotation]()
                 guard let results = data["results"] as? [[String:AnyObject]] else {
                     completeHandler(nil, "Cannot get locations, results err")
                     return
                 }
                 
+                var studentInfoArr = [StudentInformation]()
                 for result in results {
                     let studentInfo = StudentInformation(studentInfo: result)
-                    annotationsArr.append(studentInfo.annotation)
+                    studentInfoArr.append(studentInfo)
                 }
-                completeHandler(annotationsArr, "")
+                completeHandler(studentInfoArr, "")
             }
         }
 
@@ -45,10 +45,10 @@ class ParseClient {
         let HttpBody =  "".data(using: String.Encoding.utf8)
         
         let limiter = "?limit=100"
-       // let order = "?order=-updatedAt"
+        let order = "&order=-updatedAt"
         var url = "\(ParseConstant.Method.studentLocation)"
         url.append(limiter)
-       // url.append(order)
+        url.append(order)
         
         HttpRequest(method: url, HttpHeader: ParseConstant.HttpHeader, addOrSetHttpHeader: "add", HttpBody: HttpBody!, methodType: ParseConstant.MethodType.GET) { (data, error) in
             if error == nil {
@@ -67,7 +67,7 @@ class ParseClient {
     }
     static func postStudentLocation(mapString:String, mediaURL: String, latitude: CLLocationDegrees, longitude: CLLocationDegrees, handleResult: @escaping () -> Void){
         
-        let HttpBody = "{\"uniqueKey\": \"\(UdacityConstant.userInfo.accountKey!)\", \"firstName\": \"\(UdacityConstant.userInfo.firstName!)\", \"lastName\": \"\(UdacityConstant.userInfo.lastName!)\",\"mapString\": \"\(mapString)\", \"mediaURL\": \"\(mediaURL)\",\"latitude\": \(latitude.description), \"longitude\": \(longitude.description)}".data(using: String.Encoding.utf8)
+        let HttpBody = "{\"uniqueKey\": \"\(UdacityConstant.userInfo.accountKey!)\", \"firstName\": \"\(UdacityConstant.userInfo.firstName.description)\", \"lastName\": \"\(UdacityConstant.userInfo.lastName.description)\",\"mapString\": \"\(mapString)\", \"mediaURL\": \"\(mediaURL)\",\"latitude\": \(latitude.description), \"longitude\": \(longitude.description)}".data(using: String.Encoding.utf8)
         
         var HttpHeader = ParseConstant.HttpHeader
         HttpHeader["application/json"] = "Content-Type"
@@ -82,7 +82,8 @@ class ParseClient {
         }
     }
     static func putStudentLocation(objectId: String, mapString:String, mediaURL: String, latitude: CLLocationDegrees, longitude: CLLocationDegrees, handleResult: @escaping (_ error: String) -> Void){
-        let HttpBody = "{\"uniqueKey\": \"\(UdacityConstant.userInfo.accountKey!)\", \"firstName\": \"\(UdacityConstant.userInfo.firstName)\", \"lastName\": \"\(UdacityConstant.userInfo.lastName)\",\"mapString\": \"\(mapString)\", \"mediaURL\": \"\(mediaURL)\",\"latitude\": \(latitude.description), \"longitude\": \(longitude.description)}".data(using: String.Encoding.utf8)
+        let HttpBody = "{\"uniqueKey\": \"\(UdacityConstant.userInfo.accountKey!)\", \"firstName\": \"\(UdacityConstant.userInfo.firstName.description)\", \"lastName\": \"\(UdacityConstant.userInfo.lastName.description)\",\"mapString\": \"\(mapString)\", \"mediaURL\": \"\(mediaURL)\",\"latitude\": \(latitude.description), \"longitude\": \(longitude.description)}".data(using: String.Encoding.utf8)
+        
         var HttpHeader = ParseConstant.HttpHeader
         HttpHeader["application/json"] = "Content-Type"
         
@@ -153,7 +154,6 @@ class ParseClient {
     private static func HttpRequest(method: String, HttpHeader: [String:String], addOrSetHttpHeader: String, HttpBody: Data, methodType:String, handleResult: @escaping (_ result: AnyObject, _ error: String?) -> Void){
 
         let url = method.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-        print(url)
         
         let request = NSMutableURLRequest(url: URL(string: url!)!)
         request.httpMethod = methodType
