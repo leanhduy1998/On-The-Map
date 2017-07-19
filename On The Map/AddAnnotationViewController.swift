@@ -70,6 +70,11 @@ class AddAnnotationViewController: UIViewController,UITextFieldDelegate  {
         }
     }
     
+    @IBAction func cancelBtnPressed(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    
     
 
 }

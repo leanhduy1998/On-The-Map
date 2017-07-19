@@ -24,8 +24,10 @@ class ListViewController: UITableViewController {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "StudentViewCell", for: indexPath) as? StudentViewCell
         let currentStudent = StudentDataSource.sharedInstance.studentData[indexPath.row]
+        
         
         if currentStudent.firstName == nil || currentStudent.lastName == nil {
             

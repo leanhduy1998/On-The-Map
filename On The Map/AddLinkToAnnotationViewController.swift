@@ -36,6 +36,12 @@ class AddLinkToAnnotationViewController: UIViewController, MKMapViewDelegate,CLL
     }
     
     @IBAction func submitBtnClicked(_ sender: Any) {
+        if !ParseClient.isInternetAvailable() {
+            let alertController = UIAlertController(title: "No Internet Available!", message: "Please connect to the internet!", preferredStyle: UIAlertControllerStyle.alert)
+            alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.cancel, handler: nil))
+            self.present(alertController, animated: true, completion: nil)
+        }
+        
         annotation.subtitle = linkTF.text
         
         if ParseConstant.userData.annotationObjectIdArr.count > 0 {
@@ -56,7 +62,6 @@ class AddLinkToAnnotationViewController: UIViewController, MKMapViewDelegate,CLL
                             alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.cancel, handler: nil))
                             self.present(alertController, animated: true, completion: nil)
                         }
-                        
                 })
             }
         }
@@ -69,6 +74,12 @@ class AddLinkToAnnotationViewController: UIViewController, MKMapViewDelegate,CLL
             }
         }
     }
+    
+    @IBAction func cancelBtnPressed(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    
     func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
         self.mapview.centerCoordinate =
             (userLocation.location?.coordinate)!

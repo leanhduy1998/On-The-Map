@@ -344,7 +344,7 @@
                         <outlet property="addPinBtn" destination="vej-n2-gMb" id="YPy-xn-3Mu"/>
                         <outlet property="mapView" destination="YVi-7V-8AY" id="Hjv-yO-kl3"/>
                         <outlet property="refreshBtn" destination="afT-Zb-gyA" id="8hg-9a-gQO"/>
-                        <segue destination="Taw-vN-eee" kind="show" identifier="AddAnnotationViewController" id="RQk-A5-pLQ"/>
+                        <segue destination="Taw-vN-eee" kind="presentation" identifier="AddAnnotationViewController" id="RQk-A5-pLQ"/>
                         <segue destination="cgy-HD-sgp" kind="unwind" identifier="backToMapSegue" unwindAction="prepareForUnwindWithSegue:" id="DYI-H7-vTM"/>
                     </connections>
                 </viewController>
@@ -416,7 +416,7 @@
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" enablesReturnKeyAutomatically="YES"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4RB-Y1-rdO">
-                                <rect key="frame" x="30" y="634" width="354" height="42"/>
+                                <rect key="frame" x="30" y="624" width="354" height="42"/>
                                 <color key="backgroundColor" red="0.092600753659723978" green="0.0" blue="1" alpha="0.069789832746478875" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="Find on the map">
@@ -430,17 +430,30 @@
                                 <rect key="frame" x="379" y="358" width="20" height="20"/>
                                 <color key="color" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </activityIndicatorView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TtD-Ua-ZFy">
+                                <rect key="frame" x="30" y="674" width="354" height="42"/>
+                                <color key="backgroundColor" red="0.092600753659999993" green="0.0" blue="1" alpha="0.069789832750000003" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="Cancel">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="cancelBtnPressed:" destination="Taw-vN-eee" eventType="touchUpInside" id="97n-lo-79s"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="WqX-YF-ZwP" firstAttribute="top" secondItem="di8-gn-isS" secondAttribute="bottom" id="1QY-wb-iv6">
                                 <variation key="heightClass=compact-widthClass=regular" constant="3"/>
                             </constraint>
+                            <constraint firstItem="TtD-Ua-ZFy" firstAttribute="width" secondItem="4RB-Y1-rdO" secondAttribute="width" id="1SR-Mo-3ta"/>
                             <constraint firstItem="brB-1y-36o" firstAttribute="centerX" secondItem="LQo-mZ-7eS" secondAttribute="centerX" id="3IO-Ok-Ybo"/>
                             <constraint firstItem="7aY-2r-cf0" firstAttribute="centerX" secondItem="LQo-mZ-7eS" secondAttribute="centerX" id="4Yf-DF-Gmq"/>
                             <constraint firstItem="7aY-2r-cf0" firstAttribute="centerY" secondItem="LQo-mZ-7eS" secondAttribute="centerY" id="4gp-v3-h7I"/>
                             <constraint firstItem="5Tp-sl-Nky" firstAttribute="trailing" secondItem="LQo-mZ-7eS" secondAttribute="trailingMargin" constant="5" id="4so-3a-V8k"/>
                             <constraint firstItem="4RB-Y1-rdO" firstAttribute="leading" secondItem="LQo-mZ-7eS" secondAttribute="leadingMargin" constant="10" id="6pd-mM-M89"/>
+                            <constraint firstItem="ada-7m-ZH8" firstAttribute="top" secondItem="TtD-Ua-ZFy" secondAttribute="bottom" constant="20" id="Bjy-np-fnK"/>
                             <constraint firstItem="4RB-Y1-rdO" firstAttribute="centerX" secondItem="LQo-mZ-7eS" secondAttribute="centerX" id="Dx4-Qa-pJ0"/>
                             <constraint firstItem="ZZr-cA-11C" firstAttribute="top" secondItem="di8-gn-isS" secondAttribute="bottom" constant="20" id="F03-tY-v63">
                                 <variation key="heightClass=compact-widthClass=regular" constant="0.0"/>
@@ -448,6 +461,7 @@
                             </constraint>
                             <constraint firstItem="WqX-YF-ZwP" firstAttribute="centerX" secondItem="LQo-mZ-7eS" secondAttribute="centerX" id="Fan-kf-HoY"/>
                             <constraint firstAttribute="trailingMargin" secondItem="AmR-zh-Quh" secondAttribute="trailing" constant="-19" id="JJX-W2-FLu"/>
+                            <constraint firstItem="TtD-Ua-ZFy" firstAttribute="height" secondItem="4RB-Y1-rdO" secondAttribute="height" id="MiI-OU-HcB"/>
                             <constraint firstItem="AmR-zh-Quh" firstAttribute="leading" secondItem="LQo-mZ-7eS" secondAttribute="leading" id="R8d-iW-yAL"/>
                             <constraint firstItem="brB-1y-36o" firstAttribute="centerX" secondItem="LQo-mZ-7eS" secondAttribute="centerX" id="TwS-oC-7Tu"/>
                             <constraint firstAttribute="trailingMargin" secondItem="4RB-Y1-rdO" secondAttribute="trailing" constant="10" id="UQ9-Fk-gbm"/>
@@ -455,16 +469,13 @@
                                 <variation key="heightClass=compact-widthClass=regular" constant="0.0"/>
                             </constraint>
                             <constraint firstItem="5Tp-sl-Nky" firstAttribute="centerY" secondItem="LQo-mZ-7eS" secondAttribute="centerY" id="bSY-F2-vxK"/>
-                            <constraint firstItem="ada-7m-ZH8" firstAttribute="top" secondItem="4RB-Y1-rdO" secondAttribute="bottom" constant="80" id="h5Z-fF-a3k">
-                                <variation key="heightClass=compact-widthClass=compact" constant="0.0"/>
-                                <variation key="heightClass=compact-widthClass=regular" constant="20"/>
-                                <variation key="heightClass=regular-widthClass=compact" constant="60"/>
-                            </constraint>
+                            <constraint firstItem="TtD-Ua-ZFy" firstAttribute="centerX" secondItem="LQo-mZ-7eS" secondAttribute="centerX" id="hE9-BD-dnD"/>
                             <constraint firstItem="AmR-zh-Quh" firstAttribute="centerY" secondItem="LQo-mZ-7eS" secondAttribute="centerY" id="igx-S2-keL"/>
                             <constraint firstItem="brB-1y-36o" firstAttribute="top" secondItem="WqX-YF-ZwP" secondAttribute="bottom" constant="8" id="r9R-Mg-W63">
                                 <variation key="heightClass=compact-widthClass=regular" constant="0.0"/>
                             </constraint>
                             <constraint firstItem="WqX-YF-ZwP" firstAttribute="top" secondItem="ZZr-cA-11C" secondAttribute="bottom" id="tXp-8y-Pay"/>
+                            <constraint firstItem="TtD-Ua-ZFy" firstAttribute="top" secondItem="4RB-Y1-rdO" secondAttribute="bottom" constant="8" id="u34-Ct-3Xh"/>
                             <constraint firstAttribute="trailingMargin" secondItem="WqX-YF-ZwP" secondAttribute="trailing" constant="20" id="vZ4-NK-hzo">
                                 <variation key="heightClass=compact-widthClass=regular" constant="8"/>
                             </constraint>
@@ -505,7 +516,7 @@
                     <connections>
                         <outlet property="activityIndicator" destination="5Tp-sl-Nky" id="g4q-d4-lPj"/>
                         <outlet property="searchTF" destination="7aY-2r-cf0" id="Bq9-e3-oCy"/>
-                        <segue destination="OAm-ga-b5d" kind="show" identifier="AddLinkToAnnotationViewController" id="azW-jy-YWK"/>
+                        <segue destination="OAm-ga-b5d" kind="presentation" identifier="AddLinkToAnnotationViewController" id="azW-jy-YWK"/>
                         <segue destination="uqa-CV-H8y" kind="unwind" identifier="unwindBackToMapview" unwindAction="unwindBackToMapviewWithSegue:" id="Vyt-vP-Zei"/>
                     </connections>
                 </viewController>
@@ -571,15 +582,28 @@
                                     <constraint firstItem="MmD-CS-KU9" firstAttribute="leading" secondItem="t2y-Ds-dAs" secondAttribute="leading" id="wza-0M-iQw"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="66S-oa-N53">
+                                <rect key="frame" x="167" y="686" width="80" height="30"/>
+                                <color key="backgroundColor" red="0.93714743850000004" green="0.92813837529999998" blue="0.99849504229999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="yzM-X7-vOT"/>
+                                </constraints>
+                                <state key="normal" title="Cancel"/>
+                                <connections>
+                                    <action selector="cancelBtnPressed:" destination="OAm-ga-b5d" eventType="touchUpInside" id="G9e-MK-dGR"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="66S-oa-N53" firstAttribute="top" secondItem="o30-9a-nKS" secondAttribute="bottom" constant="10" id="Aq8-pl-ws5"/>
                             <constraint firstItem="o30-9a-nKS" firstAttribute="centerX" secondItem="BO7-FR-lrZ" secondAttribute="centerX" id="Ngk-hE-XXD"/>
+                            <constraint firstItem="mfQ-yx-who" firstAttribute="top" secondItem="66S-oa-N53" secondAttribute="bottom" constant="20" id="ZxA-av-Tc5"/>
                             <constraint firstItem="Byc-TX-aIy" firstAttribute="leading" secondItem="BO7-FR-lrZ" secondAttribute="leading" id="cbN-2K-Bkr"/>
                             <constraint firstItem="mfQ-yx-who" firstAttribute="top" secondItem="Byc-TX-aIy" secondAttribute="bottom" id="gq1-oJ-X4j"/>
                             <constraint firstItem="Byc-TX-aIy" firstAttribute="top" secondItem="t2y-Ds-dAs" secondAttribute="bottom" id="hkG-OL-KuR"/>
                             <constraint firstItem="t2y-Ds-dAs" firstAttribute="leading" secondItem="BO7-FR-lrZ" secondAttribute="leading" id="izv-YV-RMc"/>
-                            <constraint firstItem="mfQ-yx-who" firstAttribute="top" secondItem="o30-9a-nKS" secondAttribute="bottom" constant="60" id="oSr-6d-08h"/>
+                            <constraint firstItem="66S-oa-N53" firstAttribute="centerX" secondItem="BO7-FR-lrZ" secondAttribute="centerX" id="sNb-su-WZc"/>
                             <constraint firstItem="mfQ-yx-who" firstAttribute="top" secondItem="Byc-TX-aIy" secondAttribute="bottom" id="ski-WI-249"/>
                             <constraint firstAttribute="trailing" secondItem="Byc-TX-aIy" secondAttribute="trailing" id="t8a-gI-Lo2"/>
                             <constraint firstItem="t2y-Ds-dAs" firstAttribute="top" secondItem="fGg-Az-uEz" secondAttribute="bottom" id="zUl-w9-ENF"/>
@@ -637,6 +661,6 @@
         <image name="logo-u" width="62" height="62"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="icm-df-6zF"/>
+        <segue reference="RQk-A5-pLQ"/>
     </inferredMetricsTieBreakers>
 </document>
