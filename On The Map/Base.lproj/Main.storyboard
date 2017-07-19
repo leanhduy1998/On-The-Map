@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -244,7 +244,7 @@
                                     </connections>
                                 </button>
                                 <connections>
-                                    <segue destination="Taw-vN-eee" kind="show" identifier="AddAnnotationViewController" id="icm-df-6zF"/>
+                                    <segue destination="Taw-vN-eee" kind="presentation" identifier="AddAnnotationViewController" id="icm-df-6zF"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem style="plain" id="vpt-e0-wGR">
@@ -661,6 +661,6 @@
         <image name="logo-u" width="62" height="62"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="RQk-A5-pLQ"/>
+        <segue reference="icm-df-6zF"/>
     </inferredMetricsTieBreakers>
 </document>
