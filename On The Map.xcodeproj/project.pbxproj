@@ -173,6 +173,7 @@
 		24CBF62E1EF72A86000FCE51 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				245DB9A81EFB2FE700CDE0C0 /* StudentViewCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -183,7 +184,6 @@
 				2493AB7D1EF357FB00B5C986 /* LoginViewController.swift */,
 				24CBF6431EF8A35E000FCE51 /* MapViewController.swift */,
 				245DB9A61EF9E84600CDE0C0 /* ListViewController.swift */,
-				245DB9A81EFB2FE700CDE0C0 /* StudentViewCell.swift */,
 				245DB9AA1EFC598D00CDE0C0 /* AddAnnotationViewController.swift */,
 				245DB9AC1EFDADD500CDE0C0 /* AddLinkToAnnotationViewController.swift */,
 			);
