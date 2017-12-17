@@ -42,4 +42,4 @@ The list view displays all the users on the map as a list. You can see the links
 
 You can log out by clicking the button on the top left. You can also click the sign-up link on the login page, and it will open up the Udacity sign-up page on their website.
 
-![alt text](https://github.com/leanhduy1998/On-The-Map/blob/master/onthemap2.mov.gif)
+![alt text](https://github.com/leanhduy1998/On-The-Map/blob/master/onthemap5.mov.gif)
